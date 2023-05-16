@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "APDapp",
+    "slug": "APDapp",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
