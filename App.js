@@ -1,21 +1,68 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+
+import React, { useEffect} from 'react';
+
+
+import { NavigationContainer, } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+
+//IMPORTAMOS LAS VENTANAS
+import ScreenTablas from './screens/ScreenTablas';
+import ScreenFavoritos from './screens/screenFavoritos'
+import ScreenAgregarFiltros from './screens/screenAgregarFIltro'
+//IMPORTAMOS LOS COMANDOS DE LA BASE DE DATOS
+import { initDatabase } from './database';
+//iconos
+import { AntDesign } from '@expo/vector-icons';
 
 export default function App() {
+
+
+  // arrays de los datos de seleccion traidos por la app
+ 
+  useEffect(()=>{
+
+    //realizamos los comandos de la database
+    initDatabase(); // Inicializar la base de datos al cargar el componente
+
+  },[])
+
+  const Tab = createBottomTabNavigator();
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator>
+
+        <Tab.Screen name="Agregar Filtros" component={ScreenAgregarFiltros} options={{
+          headerShown:false,
+          tabBarIcon:({color='black', size=24 })=>(
+           <AntDesign name="filter" size={size} color={color} />
+          )}} />
+        
+        <Tab.Screen name="Buscar"  component={ScreenTablas} options={{
+          headerShown:false,
+          tabBarIcon: ({ color='black', size=24 }) => (
+            <AntDesign name="search1" size={size} color={color} />
+          )
+        }} />
+
+
+      <Tab.Screen name="Favoritos" component={ScreenFavoritos} options={{
+          headerShown:false,
+          tabBarIcon:({ color='black', size=24 })=>(
+            <AntDesign name="staro" size={size} color={color} />
+          )
+        }}/>
+
+
+       
+
+       
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+
+//estoy realizando una app conexpo y react native necesito realizar un navigate tipo tabs
