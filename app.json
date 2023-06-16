@@ -1,18 +1,19 @@
 {
+  "version": "3.5.0",
   "expo": {
     "android": {
       "package": "com.haader.apdapp",
       "versionCode": 3
     },
-    "name": "APDapp",
-    "slug": "APDapp",
+    "name": "APDapp37",
+    "slug": "APDapp23",
     "version": "3.5.0",
     "assetBundlePatterns": [
       "**/*"
     ],
     "extra": {
       "eas": {
-        "projectId": "7a368786-8feb-4cd4-a6c2-12a91d9f48d0"
+        "projectId": "1d7b4e2b-508d-4384-8a09-6f2e672a813a"
       }
     }
   }
