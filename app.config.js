@@ -9,21 +9,23 @@
 //   //   fact: 'kittens are cool',
 //   // },
 // };
-
-export default{
-  
-    "expo": {
-      "owner": "37haader38",
-      "slug": "apdapp",
-      "extra": {
-        "eas": {
-          "projectId": "d6b8be8c-8843-4b43-bad5-e84b99ad3cb5",
-        }
+export default {
+  "expo": {
+    "owner": "37haader38",
+    "slug": "apdapp",
+    "version": "3.0.0",
+    "android":{
+      "version": "3.0.0",
+      "versionCode": 2
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d6b8be8c-8843-4b43-bad5-e84b99ad3cb5"
       }
     }
-  
-  
+  }
 }
+
 // export default {
 //     name: "apdapp",
 //     version: "2.6.0",

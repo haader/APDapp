@@ -1,19 +1,29 @@
 {
-  
   "expo": {
-    "android": {
-      "package": "com.haader.apdapp"
+    "name": "APDapp",
+    "slug": "apdapp",
+    "version": "3.0.0",
+    "icon": "./assets/icon128.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
     },
-    "name": "APDapp37",
-    "slug": "APDapp23",
-  
+    "android": {
+      
+      "package": "com.haader.apdapp",
+      "versionCode": 2
+    },
+    
     "assetBundlePatterns": [
       "**/*"
     ],
     "extra": {
       "eas": {
         "projectId": "1d7b4e2b-508d-4384-8a09-6f2e672a813a"
+        
       }
     }
   }
 }
+
