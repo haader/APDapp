@@ -15,13 +15,9 @@ export default{
     "expo": {
       "owner": "37haader38",
       "slug": "apdapp",
-      "version": '3.0.1',
-      "versionCode": "3",
-      "versionName": "version22",
       "extra": {
         "eas": {
           "projectId": "d6b8be8c-8843-4b43-bad5-e84b99ad3cb5",
-          "version": "3.0"
         }
       }
     }

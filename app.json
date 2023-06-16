@@ -1,13 +1,12 @@
 {
-  "version": "3.5.0",
+  
   "expo": {
     "android": {
-      "package": "com.haader.apdapp",
-      "versionCode": 3
+      "package": "com.haader.apdapp"
     },
     "name": "APDapp37",
     "slug": "APDapp23",
-    "version": "3.5.0",
+  
     "assetBundlePatterns": [
       "**/*"
     ],
