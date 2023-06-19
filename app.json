@@ -9,6 +9,15 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "android": {
+      
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.haader.apdapp",
+      "versionCode": 3
+    },
     
     "assetBundlePatterns": [
       "**/*"
