@@ -16,7 +16,8 @@ const ModalCopiarDis=({isVisible,onClose,distritoSelect,actualizar})=>{
 
 
     const TraerDatosDistrito=()=>{
-        fetch('https://servicios3.abc.gob.ar/valoracion.docente/api/apd.oferta.encabezado/select?rows=0&facet=true&facet.limit=-1&facet.mincount=1&json.nl=map&facet.field=descdistrito&q=*:*&wt=json')
+        
+      fetch('https://servicios3.abc.gob.ar/valoracion.docente/api/apd.oferta.encabezado/select?rows=0&facet=true&facet.limit=-1&facet.mincount=1&json.nl=map&facet.field=descdistrito&q=*:*&wt=json')
         .then(response => response.json())
         .then(data => {
           // Aquí puedes trabajar con los datos de la respuesta
@@ -26,12 +27,12 @@ const ModalCopiarDis=({isVisible,onClose,distritoSelect,actualizar})=>{
           setNombresDis(arrayListaDistrito);
           //console.log(arrayListaDistrito)
           
-      console.error("trayendo nombres de los distritos");
+      // console.error("trayendo nombres de los distritos");
         })
-        .catch(error => {
-          // Manejo de errores
-          console.error(error);
-        });
+        // .catch(error => {
+        //   // Manejo de errores
+        //   console.error(error);
+        // });
       
       }
 
