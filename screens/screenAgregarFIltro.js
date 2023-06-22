@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Alert, View,StyleSheet,ImageBackground,Text } from 'react-native';
+import { Alert, View,StyleSheet,ImageBackground,Text, TouchableOpacity } from 'react-native';
 import { initDatabase, insertFiltro, fetchData } from '../database';
 import Button from '../componentes/Button'
 
 //IMPORTAMOS EL MODAL DE BUSQUEDA
 import ModalBusqueda from './modalBusqueda';
+
+//importamos los iconos
+import { AntDesign } from '@expo/vector-icons';
 
 const ScreenAgregarFiltro = () =>{
 
@@ -224,6 +227,20 @@ const ScreenAgregarFiltro = () =>{
           <Button texto={cargo} press={()=>{
             setModal3(true);
             console.log("cargo")}} />
+        </View>
+
+        <View style={{display:'flex',flexDirection:'row',position:'absolute',bottom:100,height:'20%',alignItems:'center',width:'60%',justifyContent:'center'}}>
+
+        <TouchableOpacity
+        style={{borderRadius:50,borderWidth:1,borderColor:'#707070',padding:10,backgroundColor:'#b040a8'}}>
+            <AntDesign name="like2" size={50} color="#ffff" />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+          style={{borderRadius:50,borderWidth:1,borderColor:'#707070',padding:10,marginLeft:30,backgroundColor:'#b040a8'}}>
+            <AntDesign name="sharealt" size={50} color="#ffff" />
+          </TouchableOpacity>
+
         </View>
   
         <View style={{ display: 'flex', flexDirection: 'row',position:'absolute', bottom:0 }}>
