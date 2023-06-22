@@ -33,11 +33,7 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator>
 
-        <Tab.Screen name="Agregar Filtros" component={ScreenAgregarFiltros} options={{
-          headerShown:false,
-          tabBarIcon:({color='black', size=24 })=>(
-           <AntDesign name="filter" size={size} color={color} />
-          )}} />
+     
         
         <Tab.Screen name="Buscar"  component={ScreenTablas} options={{
           headerShown:false,
@@ -45,6 +41,12 @@ export default function App() {
             <AntDesign name="search1" size={size} color={color} />
           )
         }} />
+
+        <Tab.Screen name="Agregar Filtros" component={ScreenAgregarFiltros} options={{
+          headerShown:false,
+          tabBarIcon:({color='black', size=24 })=>(
+           <AntDesign name="filter" size={size} color={color} />
+          )}} />
 
 
       <Tab.Screen name="Favoritos" component={ScreenFavoritos} options={{

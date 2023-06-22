@@ -262,25 +262,40 @@ const actualizar=()=>{
                                                             <Text style={[styles.column, styles.disponible,{backgroundColor:colorB?'#ccc':'white'}]}>{numPublicada[index2]}</Text>
                                                             <View style={[styles.cellAcciones,styles.acciones,{backgroundColor:colorB?'#ccc':'white'}]}>
                                                               
-                                                              <TouchableOpacity styles={[styles.btn]} onPress={() => {
-                                                                console.log("presionaste ver!")
-                                                                if(numPublicada[index2]!==0){
-                                                                  setFiltroSelect([item.distrito,item.nivel,item.cargo])
-                                                                  ver();
-                                                                }
-                                                              }}><AntDesign name="eye" size={30} color={numPublicada[index2]==0?'red':"green"}/></TouchableOpacity>
+                                                            
+                                                                <TouchableOpacity onPress={() => {
+                                                                    console.log("presionaste ver!")
+                                                                    if(numPublicada[index2]!==0){
+                                                                      setFiltroSelect([item.distrito,item.nivel,item.cargo])
+                                                                      ver();
+                                                                    }
+                                                                  }}
+                                                                  style={{
+                                                                    //backgroundColor: 'red', // Establecer el color de fondo como rojo
+                                                                    paddingRight: 10, // Opcional: agregar un padding para mayor espacio alrededor del icono
+                                                                  }}
+                                                                  ><AntDesign name="eye" size={35} color={numPublicada[index2]==0?'red':"green"}/></TouchableOpacity>
+                                                                  
+                                                            
                                                               
-                                                              <TouchableOpacity styles={[styles.btn]} 
-                                                              onPress={() => {
-                                                                
-                                                                  comandoDelete(item.id)
-                                                                
-                                                                }
-                                                              }
-                                                              >
-                                                                      <AntDesign name="closecircleo" size={25} color="black"/>
-                                                              </TouchableOpacity>
+                                                            
+                                                                  <TouchableOpacity  
+                                                                    onPress={() => {
+                                                                      
+                                                                        comandoDelete(item.id)
+                                                                      
+                                                                      }
+                                                                    }
+                                                                    style={{
+                                                                      //backgroundColor: 'red', // Establecer el color de fondo como rojo
+                                                                      paddingRight: 10, // Opcional: agregar un padding para mayor espacio alrededor del icono
+                                                                    }}
+                                                                    >
+                                                                            <AntDesign name="closecircleo" size={25} color="black"/>
+                                                                    </TouchableOpacity>  
+                                                            
                                                               
+                                                                
                                                               
                                                               
                                                             </View>
@@ -338,6 +353,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 300,
     color:'white',
+    borderTopLeftRadius:10,
+    borderTopRightRadius:10,
     backgroundColor:'#474545',
     fontFamily:'Roboto',
     textAlign:'center'
@@ -400,6 +417,8 @@ const styles = StyleSheet.create({
     width:'30%'
   },
   btn:{
+    
+    backgroundColor:'red',
     
   },
  

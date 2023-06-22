@@ -105,8 +105,9 @@ const CartelVacio = () => {
         return (
             <View style={{height:'90%',justifyContent:'center'}}>
                 <Text style={{ textAlign: 'center', fontSize: 20, backgroundColor:'#b040a8',padding:5,borderRadius:10,color:'rgb(255,255,255)',textShadowColor:'black',textShadowRadius:2}}>
-                      No hay datos guardados en favoritos
+                    Debes guardar cargos en favoritos
                 </Text>
+                
             </View>
             
           );

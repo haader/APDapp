@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Alert, View,StyleSheet,ImageBackground } from 'react-native';
+import { Alert, View,StyleSheet,ImageBackground,Text } from 'react-native';
 import { initDatabase, insertFiltro, fetchData } from '../database';
 import Button from '../componentes/Button'
 
@@ -18,7 +18,7 @@ const ScreenAgregarFiltro = () =>{
   const [arrayCargo,setArrayCargo]=useState(null);
 
   //declaramos las variables globales
-  const [distrito,setDistrito]=useState('Seeccionar un Distrito');
+  const [distrito,setDistrito]=useState('Seleccione un Distrito');
   const [nivel, setNivel]=useState('Seleccione un Nivel');
   const [cargo,setCargo]=useState('Seleccione un Cargo');
 
@@ -194,14 +194,19 @@ const ScreenAgregarFiltro = () =>{
 
     return (
       
-      <View style={styles.container}>
+      <View style={[styles.container,{paddingTop:30}]}>
       <ImageBackground source={require('../assets/background.jpg')} style={{ flex: 1,width:'100%',height:'100%',position:'absolute',top:0}}></ImageBackground>  
   {/* clocamos los modales */}
         <ModalBusqueda title='Seleccione un distrito' isVisible={modal1} onClose={closeModal1} data={arrayDistrito} setVariable={setDistrito} frecuentes={disFrecuentes} setNewFrecuentes={setDisFrecuentes}/>
         <ModalBusqueda title='Seleccione un nivel' isVisible={modal2} onClose={closeModal2} data={arrayNivel} setVariable={setNivel} frecuentes={nivFrecuentes} setNewFrecuentes={setNivFrecuentes}/>
         <ModalBusqueda title='Seleccione un cargo' isVisible={modal3} onClose={closeModal3} data={arrayCargo} setVariable={setCargo} frecuentes={carFrecuentes} setNewFrecuentes={setCarFrecuentes}/>
   
-        <View style={{ display: 'flex', flexDirection: 'column',marginTop:20 }}>
+        <View style={{ display: 'flex', flexDirection: 'row',top:140,position:'absolute',alignItems:'center',borderWidth:3,borderRadius:10,padding:10,borderColor:'#707070'}}>
+          <Text style={{fontSize:60,fontWeight:'600',color:'#707070'}}>APD</Text>
+          <Text style={{fontSize:30,bottom:-10,fontWeight:'100',color:'#707070'}}>app</Text>
+        </View>
+
+        <View style={{ width:'50%', display: 'flex', flexDirection: 'column',marginTop:20 }}>
           <Button texto={distrito} press={()=>{
             setModal1(true);
             console.log("distrito")
@@ -209,13 +214,13 @@ const ScreenAgregarFiltro = () =>{
           }}/>
         </View>
   
-        <View style={{ display: 'flex', flexDirection: 'column',marginTop:20 }}>
+        <View style={{ width:'50%',display: 'flex', flexDirection: 'column',marginTop:20 }}>
           <Button texto={nivel} press={()=>{
             setModal2(true);
             console.log("nivel")}}/>
         </View>
   
-        <View style={{ display: 'flex', flexDirection: 'column',marginTop:20 }}>
+        <View style={{ width:'50%',display: 'flex', flexDirection: 'column',marginTop:20 }}>
           <Button texto={cargo} press={()=>{
             setModal3(true);
             console.log("cargo")}} />

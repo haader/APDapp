@@ -9,6 +9,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "assetBundlePatterns": [
+      "assets/*"
+    ],
     "android": {
       
       "adaptiveIcon": {
@@ -18,10 +21,6 @@
       "package": "com.haader.apdapp",
       "versionCode": 3
     },
-    
-    "assetBundlePatterns": [
-      "**/*"
-    ],
     "extra": {
       "eas": {
         "projectId": "d6b8be8c-8843-4b43-bad5-e84b99ad3cb5"
