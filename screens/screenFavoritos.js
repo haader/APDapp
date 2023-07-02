@@ -26,6 +26,20 @@ const closeModal=()=>{
     setViewModal(false);
 }
 
+const darFormatoTime = (string) => {
+    const fechaHora = new Date(string);
+    const dia = fechaHora.getUTCDate();
+    const mes = fechaHora.getUTCMonth() + 1;
+    const anio = fechaHora.getUTCFullYear();
+    const horas = fechaHora.getUTCHours();
+    const minutos = fechaHora.getUTCMinutes();
+  
+    const fechaFormateada = `${dia < 10 ? '0' + dia : dia}/${mes < 10 ? '0' + mes : mes}/${anio}`;
+    const horaFormateada = `${horas < 10 ? '0' + horas : horas}:${minutos < 10 ? '0' + minutos : minutos} hs`;
+  
+    return(fechaFormateada+" "+(horaFormateada=='00:00 hs'?'':horaFormateada));
+  };
+
 const actualizar=()=>{
     console.log("Ige: "+Ige.length)
     
@@ -94,6 +108,18 @@ const igeComponents = Ige.map((item, index) => (
     <Text>Distrito: {item.distrito}</Text>
     <Text>Ige: {darFormato(item.iges)}</Text>
     <Text>Domicilio: {item.domicilio}</Text>
+    <Text style={{fontWeight:600}}>suplencia desde: {darFormatoTime(item.supl_desde)}</Text>
+    <Text style={{fontWeight:600}}>suplencia hasta: {darFormatoTime(item.supl_hasta)}</Text>
+    
+    <View style={{borderTopColor:'#ccc',borderBottomColor:'#ccc',display:'flex',flexDirection:'column',borderTopWidth:1,borderBottomWidth:1,padding:10,margin:10}}>
+            {item.lunes !== '' ?<View style={{display:'flex',flexDirection:'row'}}><AntDesign name="clockcircleo" size={15} color="black"/><Text style={{fontWeight:600}}>lunes: {item.lunes}</Text></View> : null}
+            {item.martes !== '' ?<View style={{display:'flex',flexDirection:'row'}}><AntDesign name="clockcircleo" size={15} color="black"/><Text style={{fontWeight:600}}>martes: {item.martes}</Text></View> : null}
+            {item.miercoles !== '' ?<View style={{display:'flex',flexDirection:'row'}}><AntDesign name="clockcircleo" size={15} color="black"/><Text style={{fontWeight:600}}>miercoles: {item.miercoles}</Text></View> : null}
+            {item.jueves !== '' ?<View style={{display:'flex',flexDirection:'row'}}><AntDesign name="clockcircleo" size={15} color="black"/><Text style={{fontWeight:600}}>jueves: {item.jueves}</Text></View> : null}
+            {item.viernes !== '' ?<View style={{display:'flex',flexDirection:'row'}}><AntDesign name="clockcircleo" size={15} color="black"/><Text style={{fontWeight:600}}>viernes: {item.viernes}</Text></View> : null}
+            {item.sabado !== '' ?<View style={{display:'flex',flexDirection:'row'}}><AntDesign name="clockcircleo" size={15} color="black"/><Text style={{fontWeight:600}}>sabado: {item.sabado}</Text></View> : null}
+
+        </View>
     <TouchableOpacity style={[styles.btn,{position:'absolute',bottom:0,width:'100%'}]} onPress={()=>{Ver(item.iges)}}><AntDesign name="eye" size={24} color="black" /></TouchableOpacity>
 </View>
 ));
