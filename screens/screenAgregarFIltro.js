@@ -101,7 +101,27 @@ const ScreenAgregarFiltro = () =>{
           // Realizar cualquier manipulación necesaria en la cadena de texto
           const data = JSON.parse(text);
           let lista3 = data.facet_counts.facet_fields.cargo;
-          let array3 = Object.keys(lista3).map(item=>item.replace('i�n','ión').replace('t�s','tís').replace('m�s','mús').replace('g�a','gía').replace('e�o','eño').replace('i�n','ión').replace('n�l','nál').replace('r�f','ráf').replace('r�n','rón').replace('l�g','lág').replace('l�s','lás').replace('f�s','fís').replace('m�t','mát'));
+          let array3 = Object.keys(lista3).map(item => {
+            if (item.match('�')) {
+              return item
+                .replace('i�n', 'ión')
+                .replace('t�s', 'tís')
+                .replace('m�s', 'mús')
+                .replace('g�a', 'gía')
+                .replace('e�o', 'eño')
+                .replace('i�n', 'ión')
+                .replace('n�l', 'nál')
+                .replace('r�f', 'ráf')
+                .replace('r�n', 'rón')
+                .replace('l�g', 'lág')
+                .replace('l�s', 'lás')
+                .replace('f�s', 'fís')
+                .replace('m�t', 'mát');
+            } else {
+              return item;
+            }
+                    
+        });
           setArrayCargo(array3);
         })
         .catch(error => {
