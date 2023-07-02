@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Alert, View,StyleSheet,ImageBackground,Text, TouchableOpacity } from 'react-native';
 import { initDatabase, insertFiltro, fetchData } from '../database';
-import Button from '../componentes/Button'
+import Button from '../componentes/Button';
+
+import axios from 'axios';
+    
 
 //IMPORTAMOS EL MODAL DE BUSQUEDA
 import ModalBusqueda from './modalBusqueda';
@@ -81,26 +84,32 @@ const ScreenAgregarFiltro = () =>{
       });
     
     }
+
   
-    const TraerDatosCargos=()=>{
-      fetch('https://servicios3.abc.gob.ar/valoracion.docente/api/apd.oferta.encabezado/select?rows=0&facet=true&facet.limit=-1&facet.mincount=1&json.nl=map&facet.field=cargo&q=*:*&wt=json')
-      .then(response => response.json())
-      .then(data => {
-        // Aquí puedes trabajar con los datos de la respuesta
-        let lista3=data.facet_counts.facet_fields.cargo;
-        var array3=Object.keys(lista3);
+    const TraerDatosCargos = () => {
+      const requestOptions = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8'
+        }
+      };
+      const url = 'https://servicios3.abc.gob.ar/valoracion.docente/api/apd.oferta.encabezado/select?rows=0&facet=true&facet.limit=-1&facet.mincount=1&json.nl=map&facet.field=cargo&q=*:*&wt=json';
     
-        setArrayCargo(array3);
-        // console.log(array3)
-        
+      fetch(url, requestOptions)
+        .then(response => response.text())
+        .then(text => {
+          // Realizar cualquier manipulación necesaria en la cadena de texto
+          const data = JSON.parse(text);
+          let lista3 = data.facet_counts.facet_fields.cargo;
+          let array3 = Object.keys(lista3).map(item=>item.replace('i�n','ión').replace('t�s','tís').replace('m�s','mús').replace('g�a','gía').replace('e�o','eño').replace('i�n','ión').replace('n�l','nál').replace('r�f','ráf').replace('r�n','rón').replace('l�g','lág').replace('l�s','lás').replace('f�s','fís').replace('m�t','mát'));
+          setArrayCargo(array3);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    };
     
-      })
-      .catch(error => {
-        // Manejo de errores
-        console.error(error);
-      });
-    
-    }
+
 
 
   const Frecuentes=()=>{

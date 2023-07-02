@@ -33,8 +33,6 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator>
 
-     
-        
         <Tab.Screen name="Buscar"  component={ScreenTablas} options={{
           headerShown:false,
           tabBarIcon: ({ color='black', size=24 }) => (

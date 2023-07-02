@@ -5,6 +5,7 @@ import { AntDesign } from '@expo/vector-icons';
 
 
 
+
 export default function Tarjeta({miarray}){
 
     const openURL = async (oferta,detalle) => {
@@ -111,7 +112,7 @@ export default function Tarjeta({miarray}){
       <View style={{marginLeft:20}}>    
                 {/* <Text>nivelmodalidad: {miarray.nivelmodalidad}</Text> */}
                 
-                <Text style={{fontWeight:600}}>Distrito: {miarray.descdistrito}</Text>
+                <View style={{display:'flex',flexDirection:'row'}}><AntDesign name="enviromento" size={15} color="black" /><Text style={{fontWeight:600}}>Distrito: {miarray.descdistrito}</Text></View>
                 
                 <TouchableOpacity style={styles.row}  onPress={()=>copyToClipboard(miarray.domiciliodesempeno)}>
                     <Text style={{fontWeight:600}}>Domicilio : </Text>
@@ -119,8 +120,9 @@ export default function Tarjeta({miarray}){
                 </TouchableOpacity>
                     
                 
-                <Text>curso division: {miarray.cursodivision}</Text>
-                <Text>directivo a cargo: {miarray.acargodireccion}</Text>
+                <View style={{display:'flex',flexDirection:'row'}}><AntDesign name="idcard" size={24} color="black" /><Text>curso division: {miarray.cursodivision}</Text></View>
+                <View style={{display:'flex',flexDirection:'row'}}><AntDesign name="idcard" size={24} color="black" /><Text>directivo a cargo: {miarray.acargodireccion}</Text></View>
+                
                 
                 {/* <Text>descripcionarea: {miarray.descripcionarea}</Text>
                 <Text>descripcioncargo: {miarray.descripcioncargo}</Text> */}
@@ -138,11 +140,12 @@ export default function Tarjeta({miarray}){
       </View>
       
         <View style={[styles.bordeSuave,{display:'flex',flexDirection:'column',borderTopWidth:1,borderBottomWidth:1,padding:10,margin:10}]}>
-            {miarray.lunes !== '' ? <Text style={{fontWeight:600}}>lunes: {miarray.lunes}</Text> : null}
-            {miarray.martes !== '' ? <Text style={{fontWeight:600}}>martes: {miarray.martes}</Text> : null}
-            {miarray.miercoles !== '' ? <Text style={{fontWeight:600}}>miercoles: {miarray.miercoles}</Text> : null}
-            {miarray.jueves !== '' ? <Text style={{fontWeight:600}}>jueves: {miarray.jueves}</Text> : null}
-            {miarray.viernes !== '' ? <Text style={{fontWeight:600}}>viernes: {miarray.viernes}</Text> : null}
+            {miarray.lunes !== '' ?<View style={{display:'flex',flexDirection:'row'}}><AntDesign name="clockcircleo" size={15} color="black"/><Text style={{fontWeight:600}}>lunes: {miarray.lunes}</Text></View> : null}
+            {miarray.lunes !== '' ?<View style={{display:'flex',flexDirection:'row'}}><AntDesign name="clockcircleo" size={15} color="black"/><Text style={{fontWeight:600}}>martes: {miarray.martes}</Text></View> : null}
+            {miarray.lunes !== '' ?<View style={{display:'flex',flexDirection:'row'}}><AntDesign name="clockcircleo" size={15} color="black"/><Text style={{fontWeight:600}}>miercoles: {miarray.miercoles}</Text></View> : null}
+            {miarray.lunes !== '' ?<View style={{display:'flex',flexDirection:'row'}}><AntDesign name="clockcircleo" size={15} color="black"/><Text style={{fontWeight:600}}>jueves: {miarray.jueves}</Text></View> : null}
+            {miarray.lunes !== '' ?<View style={{display:'flex',flexDirection:'row'}}><AntDesign name="clockcircleo" size={15} color="black"/><Text style={{fontWeight:600}}>viernes: {miarray.viernes}</Text></View> : null}
+
         </View>
 
         <View style={{marginLeft:20}}>

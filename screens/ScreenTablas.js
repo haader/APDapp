@@ -257,14 +257,32 @@ const actualizar=()=>{
                                                         colorB?colorB=false:colorB=true;
                                                         return (
                                                           <View key={item.id} style={styles.tableRow}>
-                                                            <Text style={[styles.column, styles.nivel,{backgroundColor:colorB?'#ccc':'white'}]}>{item.nivel}</Text>
-                                                            <Text style={[styles.column, styles.cargo,{backgroundColor:colorB?'#ccc':'white'}]}>{item.cargo}</Text>
-                                                            <Text style={[styles.column, styles.disponible,{backgroundColor:colorB?'#ccc':'white'}]}>{numPublicada[index2]}</Text>
+                                                            <TouchableOpacity onPress={() => {
+                                                                    // console.log("presionaste ver!")
+                                                                    if(numPublicada[index2]!==0){
+                                                                      setFiltroSelect([item.distrito,item.nivel,item.cargo])
+                                                                      ver();
+                                                                    }
+                                                                  }} style={[styles.column, styles.nivel,{backgroundColor:colorB?'#ccc':'white'}]}><Text style={styles.texto}>{item.nivel}</Text></TouchableOpacity>
+                                                             <TouchableOpacity onPress={() => {
+                                                                    // console.log("presionaste ver!")
+                                                                    if(numPublicada[index2]!==0){
+                                                                      setFiltroSelect([item.distrito,item.nivel,item.cargo])
+                                                                      ver();
+                                                                    }
+                                                                  }} style={[styles.column, styles.cargo,{backgroundColor:colorB?'#ccc':'white'}]}><Text style={styles.texto}>{item.cargo}</Text></TouchableOpacity>
+                                                             <TouchableOpacity onPress={() => {
+                                                                    // console.log("presionaste ver!")
+                                                                    if(numPublicada[index2]!==0){
+                                                                      setFiltroSelect([item.distrito,item.nivel,item.cargo])
+                                                                      ver();
+                                                                    }
+                                                                  }} style={[styles.column, styles.disponible,{backgroundColor:colorB?'#ccc':'white'}]}><Text style={styles.texto}>{numPublicada[index2]}</Text></TouchableOpacity>
                                                             <View style={[styles.cellAcciones,styles.acciones,{backgroundColor:colorB?'#ccc':'white'}]}>
                                                               
                                                             
                                                                 <TouchableOpacity onPress={() => {
-                                                                    console.log("presionaste ver!")
+                                                                    // console.log("presionaste ver!")
                                                                     if(numPublicada[index2]!==0){
                                                                       setFiltroSelect([item.distrito,item.nivel,item.cargo])
                                                                       ver();
@@ -276,9 +294,6 @@ const actualizar=()=>{
                                                                   }}
                                                                   ><AntDesign name="eye" size={35} color={numPublicada[index2]==0?'red':"green"}/></TouchableOpacity>
                                                                   
-                                                            
-                                                              
-                                                            
                                                                   <TouchableOpacity  
                                                                     onPress={() => {
                                                                       
@@ -406,6 +421,10 @@ const styles = StyleSheet.create({
    justifyContent:"center",
    
 
+  },
+  texto:{
+    textAlign:'center',
+    fontWeight:200
   },
   cellAcciones:{
     borderColor:'#b040a8',

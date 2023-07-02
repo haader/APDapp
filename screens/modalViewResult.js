@@ -88,15 +88,33 @@ const ModalViewResult = ({ isVisible, onClose, data, url}) => {
     }
   }
 
+  const Save=()=>{
+    return(
+
+                <TouchableOpacity onPress={()=>{
+                  //console.log("IGE:"+JSON.stringify(arrayResult.response.docs[actual].ige))
+                  console.log("presionando")
+                  let igeNum=arrayResult.response.docs[actual].ige;
+                  comprobarRepetidos(igeNum);
+                  }}
+                  style={{width:'20%',position:'absolute',right:0}}>
+                    
+                    <AntDesign name="save" size={60} color={'black'} />
+                    {/* <Text>Guardar</Text> */}
+
+                </TouchableOpacity>
+    )
+  }
+
   const Navegador=()=>{
     return(
       <View style={{display:"flex",flexDirection:"row",alignItems:'center',width:'100%',justifyContent:'center'}}>
           
-          <TouchableOpacity  onPress={()=>{ btnAnterior()}}><AntDesign name="leftcircle" size={35} color="black" /></TouchableOpacity>
+          <TouchableOpacity  onPress={()=>{ btnAnterior()}}><AntDesign name="leftcircle" size={40} color="#b040a8" /></TouchableOpacity>
           
-          <Text>{actual+1} de {total}</Text>
+          <Text style={{margin:20, fontSize:22}}>{actual+1} de {total}</Text>
 
-          <TouchableOpacity  onPress={()=>{btnSiguiente()}}><AntDesign name="rightcircle" size={35} color="black" /></TouchableOpacity>
+          <TouchableOpacity  onPress={()=>{btnSiguiente()}}><AntDesign name="rightcircle" size={40} color="#b040a8" /></TouchableOpacity>
         </View>
     )
   }
@@ -168,20 +186,17 @@ useEffect(()=>{
         <Resultados/>
         {/* <Text>{arrayResult}</Text> */}
         
-        <Navegador/>
+        
        
       </View>
-      <View style={{width:'100%',alignContent:'center',alignItems:'center'}}>
-                <TouchableOpacity onPress={()=>{
-                  //console.log("IGE:"+JSON.stringify(arrayResult.response.docs[actual].ige))
-                  console.log("presionando")
-                  let igeNum=arrayResult.response.docs[actual].ige;
-                  comprobarRepetidos(igeNum);
-                  }}>
-                    
-                    <AntDesign name="star" size={60} color={'black'} />
+      <View style={{width:'100%',alignContent:'center',alignItems:'center',display:'flex',flexDirection:'row'}}>
+                
+                
 
-                </TouchableOpacity>
+                <Navegador/>
+
+                <Save/>
+
             </View>
       
             <View style={{justifyContent:'center',alignContent:'center',position:'absolute',bottom:0,width:'100%'}}>
