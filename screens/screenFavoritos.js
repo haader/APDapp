@@ -15,6 +15,9 @@ import Tarjeta from './tarjeta';
 const ScreenFavoritos = () => {
 
 const [array,setArray]=useState([{}]);
+const [objTarjeta,setObjTarjeta]=useState([{}]);
+
+//array de objeto que contiene los IGE traidos de la tabla tableFavoritos
 const [Ige,setIge]=useState([{}]);
 const [viewModal,setViewModal]=useState(false);
 
@@ -44,38 +47,101 @@ const actualizar=()=>{
     console.log("Ige: "+Ige.length)
     
     fetchFav((data) => {
-        console.log("favoritos: ", JSON.stringify(data));
-
       setIge(data);
+      console.log("se envio a Ige: ", JSON.stringify(data));
     
     });
+    if (Ige !== undefined) {
+        Ige.map((item,index)=>{
+            ConsultarPreTarjetas(item.ige,index);
+        }
+        )    
+    }
+    
+    
+    
   }
 
   const darFormato=(ige)=>{
+    //no es necesario comprobar si ige es undefined, hay que revisar donde se usa darFormato
     if (ige !== undefined) {
         let newIGE=ige.replace('.0','');
         return newIGE;
     }
 }
 
-const Ver=(ige)=>{
+
+const ConsultarPreTarjetas =async(ige,numeroConsulta)=>{
     
-    let newIGE=darFormato(ige);
+
+    let newIGE=darFormato(ige);//elimina el .0 del ige
+    console.log("ige a consultar: "+ige)
     //realizamos la consulta
     fetch('https://servicios3.abc.gob.ar/valoracion.docente/api/apd.oferta.encabezado/select?q=*%3A*&rows=6&sort=finoferta%20desc&json.nl=map&fq=ige%3A'+newIGE+'&wt=json')
     .then(response => response.json())
     .then(data => {
+
       // Aquí puedes manejar los datos obtenidos en formato JSON
-      setArray(data.response.docs[0]);
+    //   console.log("ConsultarPreTarjetas: /**/")
+    //   console.log( data.response.docs[0])
+    
+      //que datos necesitamos para mostrar
+      //estado
+      //distrito
+      //cargo 
+      //domicilio
+      //dias y horario
+      
+      //creamos un objeto que contendra los datos para mostrar en las tarjetas      
+      let objFav={"ige":ige,"estado":"","distrito":"","cargo":"","domicilio":"","lu":"","ma":"","mi":"","ju":"","vi":"","sa":"","supl_desde":"","supl_hasta":""}
+
+      //guardamos los datos en el objeto crado para luego pushearlo
+        objFav.estado=data.response.docs[0].estado;
+        objFav.distrito=data.response.docs[0].descdistrito;
+        objFav.cargo=data.response.docs[0].cargo;
+        objFav.domicilio=data.response.docs[0].domiciliodesempeno;
+        objFav.supl_desde=data.response.docs[0].supl_desde;
+        objFav.supl_hasta=data.response.docs[0].supl_hasta;
+
+
+        //guardamos los dias si son diferentes a "" (string vacio)
+        data.response.docs[0].lunes!=""?objFav.lu=data.response.docs[0].lunes:null;
+        data.response.docs[0].martes!=""?objFav.ma=data.response.docs[0].martes:null;
+        data.response.docs[0].miercoles!=""?objFav.mi=data.response.docs[0].miercoles:null;
+        data.response.docs[0].jueves!=""?objFav.ju=data.response.docs[0].jueves:null;
+        data.response.docs[0].viernes!=""?objFav.vi=data.response.docs[0].viernes:null;
+        data.response.docs[0].sabado!=undefined?data.response.docs[0].sabado!=""?objFav.sa=data.response.docs[0].sabado:null:null;
+
+        //guardamos el objeto en la variable global, pusheandolo
+
+      console.log("objeto fav es: "+JSON.stringify(objFav))
+
+        setObjTarjeta(prevState => {
+        const updatedArray = [...prevState];
+        updatedArray[numeroConsulta] = objFav;
+        return updatedArray;
+
+    
+     })
+
+    //console.log("objTarjeta es "+objTarjeta);
+
+    }).catch((error)=>{
+        console.log("hubo un error:"+error)
     })
-    //introducimos los datos a un modal para exponerlos
-    setViewModal(true);
 
 }
 
-const igeComponents = Ige.map((item, index) => (
-<View
-    style={styles.igeTarjeta}
+const pintarPreTarjetas =(objetoIge,index)=>{
+
+    return(
+        <View
+    style={[styles.igeTarjeta,{
+    backgroundColor: objetoIge.estado=='Publicada'?'rgba(56, 200, 168, 0.20)':'rgba(255, 255, 120, 0.20)',
+    borderTopWidth:5,
+//    borderTopColor:'#38c8a8'
+    borderTopColor:objetoIge.estado=='Publicada'?'rgba(56, 200, 168, 1)':'rgba(255, 255, 120, 1)',
+}]}
     key={index}
     // onPress={() => {verFavorito(item.iges)}}
 >
@@ -93,7 +159,7 @@ const igeComponents = Ige.map((item, index) => (
                             text: 'Aceptar',
                             onPress: () => {                  
                             //acciones si se acepta
-                            deleteFav(item.id);
+                            deleteFav(index);
                             actualizar();
                             },
                         },
@@ -103,26 +169,67 @@ const igeComponents = Ige.map((item, index) => (
                                 
         }}><AntDesign name="closecircleo" size={30} color="red" />
     </TouchableOpacity>
-
-    <Text>Cargo: {item.cargo}</Text>
-    <Text>Distrito: {item.distrito}</Text>
-    <Text>Ige: {darFormato(item.iges)}</Text>
-    <Text>Domicilio: {item.domicilio}</Text>
-    <Text style={{fontWeight:600}}>suplencia desde: {darFormatoTime(item.supl_desde)}</Text>
-    <Text style={{fontWeight:600}}>suplencia hasta: {darFormatoTime(item.supl_hasta)}</Text>
     
-    <View style={{borderTopColor:'#ccc',borderBottomColor:'#ccc',display:'flex',flexDirection:'column',borderTopWidth:1,borderBottomWidth:1,padding:10,margin:10}}>
-            {item.lunes !== '' ?<View style={{display:'flex',flexDirection:'row'}}><AntDesign name="clockcircleo" size={15} color="black"/><Text style={{fontWeight:600}}>lunes: {item.lunes}</Text></View> : null}
-            {item.martes !== '' ?<View style={{display:'flex',flexDirection:'row'}}><AntDesign name="clockcircleo" size={15} color="black"/><Text style={{fontWeight:600}}>martes: {item.martes}</Text></View> : null}
-            {item.miercoles !== '' ?<View style={{display:'flex',flexDirection:'row'}}><AntDesign name="clockcircleo" size={15} color="black"/><Text style={{fontWeight:600}}>miercoles: {item.miercoles}</Text></View> : null}
-            {item.jueves !== '' ?<View style={{display:'flex',flexDirection:'row'}}><AntDesign name="clockcircleo" size={15} color="black"/><Text style={{fontWeight:600}}>jueves: {item.jueves}</Text></View> : null}
-            {item.viernes !== '' ?<View style={{display:'flex',flexDirection:'row'}}><AntDesign name="clockcircleo" size={15} color="black"/><Text style={{fontWeight:600}}>viernes: {item.viernes}</Text></View> : null}
-            {item.sabado !== '' ?<View style={{display:'flex',flexDirection:'row'}}><AntDesign name="clockcircleo" size={15} color="black"/><Text style={{fontWeight:600}}>sabado: {item.sabado}</Text></View> : null}
+    <Text style={styles.estado}>{objetoIge.estado}</Text>
+    
+        <View style={{display:'flex',flexDirection:'row', marginBottom:10,marginTop:10}}>
+                <Text style={styles.headerTarjeta}>{objetoIge.distrito}</Text>
+                <Text style={styles.headerTarjeta}>{objetoIge.cargo}</Text>
+                {/* <Text style={styles.headerTarjeta}>{darFormato(objetoIge.ige)}</Text> */}
+        </View>
+    <View style={styles.body}>
+        <Text>Domicilio: {objetoIge.domicilio}</Text>
+    <Text style={{fontWeight:400}}>suplencia desde: {darFormatoTime(objetoIge.supl_desde)}</Text>
+    <Text style={{fontWeight:400}}>suplencia hasta: {darFormatoTime(objetoIge.supl_hasta)}</Text>
+    
+    <View style={{borderTopColor:'#ccc',borderBottomColor:'#ccc',display:'flex',flexDirection:'column',borderTopWidth:2,borderBottomWidth:2,borderBottomColor:'gray',borderTopColor:'gray',marginTop:10,paddingTop:10,paddingBottom:10}}>
+            {objetoIge.lu !== '' ?<View style={{display:'flex',flexDirection:'row'}}><AntDesign name="clockcircleo" size={15} color="black"/><Text style={{fontWeight:600}}>lunes: {objetoIge.lu}</Text></View> : null}
+            {objetoIge.ma !== '' ?<View style={{display:'flex',flexDirection:'row'}}><AntDesign name="clockcircleo" size={15} color="black"/><Text style={{fontWeight:600}}>martes: {objetoIge.ma}</Text></View> : null}
+            {objetoIge.mi !== '' ?<View style={{display:'flex',flexDirection:'row'}}><AntDesign name="clockcircleo" size={15} color="black"/><Text style={{fontWeight:600}}>miercoles: {objetoIge.mi}</Text></View> : null}
+            {objetoIge.ju !== '' ?<View style={{display:'flex',flexDirection:'row'}}><AntDesign name="clockcircleo" size={15} color="black"/><Text style={{fontWeight:600}}>jueves: {objetoIge.ju}</Text></View> : null}
+            {objetoIge.vi !== '' ?<View style={{display:'flex',flexDirection:'row'}}><AntDesign name="clockcircleo" size={15} color="black"/><Text style={{fontWeight:600}}>viernes: {objetoIge.vi}</Text></View> : null}
+            {objetoIge.sa !== '' ?<View style={{display:'flex',flexDirection:'row'}}><AntDesign name="clockcircleo" size={15} color="black"/><Text style={{fontWeight:600}}>sabado: {objetoIge.sa}</Text></View> : null}
 
         </View>
-    <TouchableOpacity style={[styles.btn,{position:'absolute',bottom:0,width:'100%'}]} onPress={()=>{Ver(item.iges)}}><AntDesign name="eye" size={24} color="black" /></TouchableOpacity>
+    </View>
+    <TouchableOpacity style={[styles.btn,{position:'absolute',bottom:0,width:'100%'}]} onPress={()=>{Ver(objetoIge.ige)}}><AntDesign name="eye" size={24} color="black" /></TouchableOpacity>
 </View>
-));
+
+    )
+}
+
+const renderizarTarjetas = ({ objTarjeta }) => {
+    if (objTarjeta !== null) {
+        console.log("se pintara!!!: "+JSON.stringify(objTarjeta))
+      const igeComponents = objTarjeta.map((item, index) => {
+        return(
+        <View key={index}>
+            {pintarPreTarjetas(item, index)}
+        </View>
+        )
+      });
+  
+      return <View>{igeComponents}</View>;
+    }
+  
+    return (<View><Text>NO hay datos guardados aun</Text></View>);
+  };
+
+
+const Ver=(ige)=>{
+    
+    let newIGE=darFormato(ige);
+    //realizamos la consulta
+    fetch('https://servicios3.abc.gob.ar/valoracion.docente/api/apd.oferta.encabezado/select?q=*%3A*&rows=6&sort=finoferta%20desc&json.nl=map&fq=ige%3A'+newIGE+'&wt=json')
+    .then(response => response.json())
+    .then(data => {
+      // Aquí puedes manejar los datos obtenidos en formato JSON
+      setArray(data.response.docs[0]);
+    })
+    //introducimos los datos a un modal para exponerlos
+    setViewModal(true);
+
+}
 
 const CartelVacio = () => {
     if (Ige.length == 0) {
@@ -152,7 +259,13 @@ const CartelVacio = () => {
             {/* <ScrollView style={{alignItems:'center'}}> */}
             <ScrollView style={{width:'100%',padding:10}}>
             
-                {igeComponents}
+        
+            <View>
+                    {objTarjeta !== undefined && renderizarTarjetas({ objTarjeta })}
+            </View>
+
+
+
            
             </ScrollView>
             
@@ -179,13 +292,20 @@ const styles=StyleSheet.create({
         alignItems:'center'
     },igeTarjeta:{
         width: '95%',
-        height: 125,
+        paddingBottom:20,
         borderWidth: 1,
         borderRadius: 10,
         margin: 10,
-        backgroundColor: 'rgba(255, 255, 255, 0.5)',
-        borderTopWidth:5,
-        borderTopColor:'#38c8a8'
+        
+    },headerTarjeta:{
+        fontSize:13,
+        fontWeight:300,
+        marginLeft:10,
+        marginRight:10,
+    },estado:{
+        textAlign:'center'
+    },body:{
+        margin:20
     }
 })
 

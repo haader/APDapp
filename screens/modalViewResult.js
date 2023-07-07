@@ -12,9 +12,9 @@ const ModalViewResult = ({ isVisible, onClose, data, url}) => {
   const [actual,setActual]=useState(0);
   const [total,setTotal]=useState(0);
 
-  const guardar=(distrito,cargo,domicilio,ige)=>{
-        
-    insertFav(distrito,cargo,domicilio,ige)
+  const guardar=(ige)=>{
+        //antes de ejecutar esta funcion se comprueba si esta repetido el ige
+    insertFav(ige)
 
                     Alert.alert(
                       'Estado',
@@ -123,8 +123,9 @@ const ModalViewResult = ({ isVisible, onClose, data, url}) => {
     let ige2=ige+'.0';
     console.log(ige2);
   
+    //se verifica que el ige a guardar no este ya en la base de datos para eso se hace una consulta
     fetchFav((data) => {
-      const repetido = data.some((item) => item.iges === ige2);
+      const repetido = data.some((item) => item.ige === ige2);
       console.log(repetido);
   
       if (repetido) {
@@ -152,9 +153,9 @@ const ModalViewResult = ({ isVisible, onClose, data, url}) => {
               text: 'Aceptar',
               onPress: () => {
                 guardar(
-                  arrayResult.response.docs[actual].descdistrito,
-                  arrayResult.response.docs[actual].cargo,
-                  arrayResult.response.docs[actual].domiciliodesempeno,
+                  // arrayResult.response.docs[actual].descdistrito,
+                  // arrayResult.response.docs[actual].cargo,
+                  // arrayResult.response.docs[actual].domiciliodesempeno,
                   arrayResult.response.docs[actual].ige
                 );
               },

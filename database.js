@@ -8,18 +8,18 @@ export const initDatabase = () => {
     tx.executeSql(
       'CREATE TABLE IF NOT EXISTS tableFiltros (id INTEGER PRIMARY KEY AUTOINCREMENT, distrito TEXT, nivel TEXT, cargo TEXT)'
     );
-    //tx.executeSql('DROP TABLE IF EXISTS tableFavoritos;');
+    //tx.executeSql('DROP TABLE IF EXISTS tableFavoritos');
      tx.executeSql(
-       'CREATE TABLE IF NOT EXISTS tableFavoritos (id INTEGER PRIMARY KEY AUTOINCREMENT, distrito TEXT,cargo TEXT,domicilio TEXT,iges TEXT)' 
+       'CREATE TABLE IF NOT EXISTS tableFavoritos (id INTEGER PRIMARY KEY AUTOINCREMENT, ige TEXT)' 
      );
   });
 };
 
 
 //FUNCIONES PARA LA TABLA DE LOS FAVORITOS
-      export const insertFav=(distrito,cargo,domicilio,ige)=>{
+      export const insertFav=(ige)=>{
         database.transaction((tx)=>{
-          tx.executeSql('INSERT INTO tableFavoritos (distrito,cargo,domicilio,iges) values  (?,?,?,?)', [distrito,cargo,domicilio,ige])
+          tx.executeSql('INSERT INTO tableFavoritos (ige) values  (?)', [ige])
         })
         console.log("se guardaron los datos, iges:"+ige);
       }
