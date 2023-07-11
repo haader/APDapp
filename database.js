@@ -24,9 +24,9 @@ export const initDatabase = () => {
         console.log("se guardaron los datos, iges:"+ige);
       }
 
-      export const deleteFav=(id)=>{
+      export const deleteFav=(ige)=>{
         database.transaction((tx)=>{
-          tx.executeSql('DELETE FROM tableFavoritos WHERE id = ?', [id]);
+          tx.executeSql('DELETE FROM tableFavoritos WHERE ige = ?', [ige]);
         })
       }
 

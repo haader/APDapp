@@ -45,6 +45,8 @@ const darFormatoTime = (string) => {
 
 const actualizar=()=>{
     console.log("Ige: "+Ige.length)
+
+    // setObjTarjeta([{}]);
     
     fetchFav((data) => {
       setIge(data);
@@ -93,10 +95,11 @@ const ConsultarPreTarjetas =async(ige,numeroConsulta)=>{
       //dias y horario
       
       //creamos un objeto que contendra los datos para mostrar en las tarjetas      
-      let objFav={"ige":ige,"estado":"","distrito":"","cargo":"","domicilio":"","lu":"","ma":"","mi":"","ju":"","vi":"","sa":"","supl_desde":"","supl_hasta":""}
+      let objFav={"ige":ige,"escuela":'',"estado":"","distrito":"","cargo":"","domicilio":"","lu":"","ma":"","mi":"","ju":"","vi":"","sa":"","supl_desde":"","supl_hasta":""}
 
       //guardamos los datos en el objeto crado para luego pushearlo
         objFav.estado=data.response.docs[0].estado;
+        objFav.escuela=data.response.docs[0].escuela;
         objFav.distrito=data.response.docs[0].descdistrito;
         objFav.cargo=data.response.docs[0].cargo;
         objFav.domicilio=data.response.docs[0].domiciliodesempeno;
@@ -159,7 +162,7 @@ const pintarPreTarjetas =(objetoIge,index)=>{
                             text: 'Aceptar',
                             onPress: () => {                  
                             //acciones si se acepta
-                            deleteFav(index);
+                            deleteFav(objetoIge.ige);
                             actualizar();
                             },
                         },
@@ -178,6 +181,7 @@ const pintarPreTarjetas =(objetoIge,index)=>{
                 {/* <Text style={styles.headerTarjeta}>{darFormato(objetoIge.ige)}</Text> */}
         </View>
     <View style={styles.body}>
+        <Text>Escuela: {objetoIge.escuela}</Text>
         <Text>Domicilio: {objetoIge.domicilio}</Text>
     <Text style={{fontWeight:400}}>suplencia desde: {darFormatoTime(objetoIge.supl_desde)}</Text>
     <Text style={{fontWeight:400}}>suplencia hasta: {darFormatoTime(objetoIge.supl_hasta)}</Text>
@@ -199,9 +203,11 @@ const pintarPreTarjetas =(objetoIge,index)=>{
 }
 
 const renderizarTarjetas = ({ objTarjeta }) => {
-    if (objTarjeta !== null ) {
-        console.log("se pintara!!!: "+JSON.stringify(objTarjeta))
-      const igeComponents = objTarjeta.map((item, index) => {
+    if (objTarjeta[0].ige != undefined ) {
+
+        console.log("objTarjeta es mayor a cero!!!: "+JSON.stringify(objTarjeta))
+      
+        const igeComponents = objTarjeta.map((item, index) => {
         return(
         <View key={index}>
             {pintarPreTarjetas(item, index)}
@@ -210,9 +216,11 @@ const renderizarTarjetas = ({ objTarjeta }) => {
       });
   
       return <View>{igeComponents}</View>;
+    }else{
+        
     }
   
-    return (<View><Text>NO hay datos guardados aun</Text></View>);
+    
   };
 
 
@@ -261,7 +269,7 @@ const CartelVacio = () => {
             
         
             <View>
-                    {objTarjeta !== undefined && renderizarTarjetas({ objTarjeta })}
+                    {objTarjeta[0].ige != undefined && renderizarTarjetas({ objTarjeta })}
             </View>
 
 

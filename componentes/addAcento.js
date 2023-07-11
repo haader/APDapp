@@ -1,5 +1,5 @@
 const addAcento = (texto)=>{
-    console.log("add Acento "+texto);
+    
 if(texto!=undefined){
   if (texto.match('�')) {
     return texto
@@ -47,9 +47,7 @@ if(texto!=undefined){
     return texto;
   }
 }else{
-  console.log("devolviendo NO DEFINIDO")
-  texto='hola!'
-  return (texto)
+  return "";
 }
   
 }

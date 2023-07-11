@@ -134,7 +134,7 @@ export default function Tarjeta({miarray}){
                 <Text>&#41;</Text>
             </TouchableOpacity>
 
-            <Text style={{fontSize:20,color:'#b040a8'}}>{addAcento(miarray.cargo)}</Text>
+            <Text style={{fontSize:20,color:'#b040a8'}}>{addAcento(miarray.cargo).toUpperCase()}</Text>
             <View style={styles.row}>
             <Text style={{fontWeight:600}}>Cierre de oferta: </Text>
                 <Text style={{fontSize:20,color:'#b040a8'}}>{darFormato(miarray.finoferta)}</Text>
@@ -170,6 +170,7 @@ export default function Tarjeta({miarray}){
                 <View style={{display:'flex',flexDirection:'row'}}><AntDesign name="enviromento" size={15} color="black" /><Text style={{fontWeight:600}}>Distrito: {miarray.descdistrito}</Text></View>
                 
                 <TouchableOpacity style={styles.row} onPress={() => copyToClipboard(addAcento(miarray.domiciliodesempeno))}>
+                    <AntDesign name="enviromento" size={15} color="black" />
                     <Text style={{ fontWeight: 600 }}>Domicilio: </Text>
                     <Text>{addAcento(miarray.domiciliodesempeno)}<AntDesign name="copy1" size={18} color="black" /></Text>
                 </TouchableOpacity>
@@ -182,8 +183,16 @@ export default function Tarjeta({miarray}){
                 {/* <Text>descripcionarea: {miarray.descripcionarea}</Text>
                 <Text>descripcioncargo: {miarray.descripcioncargo}</Text> */}
                 
-                <Text>hs modulos: {miarray.hsmodulos}</Text>
-                <Text>inicio de oferta: {darFormato(miarray.iniciooferta)}</Text>
+                <View style={styles.row}>
+                    <AntDesign name="clockcircleo" size={15} color="black"/>
+                    <Text>hs modulos: {miarray.hsmodulos}</Text>
+                </View>
+                <View style={styles.row}>
+                    <AntDesign name="clockcircleo" size={15} color="black"/>
+                    <Text>inicio de oferta: {darFormato(miarray.iniciooferta)}</Text>
+                </View>
+                
+                
                 {/* <Text>id: {miarray.id}</Text>
                 <Text>iddetalle: {miarray.iddetalle}</Text>
                 <Text>idoferta: {miarray.idoferta}</Text> */}
@@ -205,17 +214,35 @@ export default function Tarjeta({miarray}){
         </View>
 
         <View style={{marginLeft:20}}>
-                <Text style={{fontWeight:600}}>suplencia desde: {darFormato(miarray.supl_desde)}</Text>
-                <Text style={{fontWeight:600}}>suplencia hasta: {darFormato(miarray.supl_hasta)}</Text>
+                <View style={styles.row}>
+                    <AntDesign name="clockcircleo" size={15} color="black"/>
+                    <Text style={{fontWeight:600}}>suplencia desde: {darFormato(miarray.supl_desde)}</Text>    
+                </View>
+                
+                <View style={styles.row}>
+                    <AntDesign name="clockcircleo" size={15} color="black"/>
+                    <Text style={{fontWeight:600}}>suplencia hasta: {darFormato(miarray.supl_hasta)}</Text>
+                </View>
+                
         </View>
       
       <View style={[styles.bordeSuave,{display:'flex',flexDirection:'column',borderTopWidth:1,borderBottomWidth:1,padding:10,margin:10}]}>
-            <Text>tomaposesion: {darFormato(miarray.tomaposesion)}</Text>
-            <Text>supl_revista: {miarray.supl_revista}</Text>
-      
+            
+            <View style={styles.row}>
+              <AntDesign name="idcard" size={15} color="black"/>
+              <Text>tomaposesion: {darFormato(miarray.tomaposesion)}</Text>
+            </View>
+            
+            <View style={styles.row}>
+              <AntDesign name="idcard" size={15} color="black"/>
+              <Text>supl_revista: {miarray.supl_revista}</Text>
+            </View>
+
             {/* <Text>numdistrito: {miarray.numdistrito}</Text> */}
-      
-            <Text>observaciones: {miarray.observaciones}</Text>
+            <View style={styles.row}>
+              <AntDesign name="idcard" size={15} color="black"/>
+              <Text>observaciones: {miarray.observaciones}</Text>
+            </View>
       </View>
       
 
