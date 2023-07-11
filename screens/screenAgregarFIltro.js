@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Alert, View,StyleSheet,ImageBackground,Text, TouchableOpacity } from 'react-native';
-import { initDatabase, insertFiltro, fetchData } from '../database';
+import { insertFiltro, fetchData } from '../database';
 import Button from '../componentes/Button';
 
-import axios from 'axios';
+
     
 
 //IMPORTAMOS EL MODAL DE BUSQUEDA
@@ -12,6 +12,8 @@ import ModalBusqueda from './modalBusqueda';
 
 //importamos los iconos
 import { AntDesign } from '@expo/vector-icons';
+import addAcento from '../componentes/addAcento';
+
 
 const ScreenAgregarFiltro = () =>{
 
@@ -102,24 +104,8 @@ const ScreenAgregarFiltro = () =>{
           const data = JSON.parse(text);
           let lista3 = data.facet_counts.facet_fields.cargo;
           let array3 = Object.keys(lista3).map(item => {
-            if (item.match('�')) {
-              return item
-                .replace('i�n', 'ión')
-                .replace('t�s', 'tís')
-                .replace('m�s', 'mús')
-                .replace('g�a', 'gía')
-                .replace('e�o', 'eño')
-                .replace('i�n', 'ión')
-                .replace('n�l', 'nál')
-                .replace('r�f', 'ráf')
-                .replace('r�n', 'rón')
-                .replace('l�g', 'lág')
-                .replace('l�s', 'lás')
-                .replace('f�s', 'fís')
-                .replace('m�t', 'mát');
-            } else {
-              return item;
-            }
+            
+            return addAcento(item);
                     
         });
           setArrayCargo(array3);

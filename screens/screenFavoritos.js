@@ -199,7 +199,7 @@ const pintarPreTarjetas =(objetoIge,index)=>{
 }
 
 const renderizarTarjetas = ({ objTarjeta }) => {
-    if (objTarjeta !== null) {
+    if (objTarjeta !== null ) {
         console.log("se pintara!!!: "+JSON.stringify(objTarjeta))
       const igeComponents = objTarjeta.map((item, index) => {
         return(

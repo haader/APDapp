@@ -5,6 +5,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { fetchFav, insertFav } from '../database';
 //importamos el btn personalizado
 import Button from '../componentes/Button'
+
 const ModalViewResult = ({ isVisible, onClose, data, url}) => {
 
   //traer datos del resultado del btn VER

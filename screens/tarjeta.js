@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Button,StyleSheet, Linking,ScrollView, TouchableOpacity, Alert } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import { AntDesign } from '@expo/vector-icons';
+//import {addAcento} from '../componentes/addAcento';
 
 
 
@@ -44,6 +45,60 @@ export default function Tarjeta({miarray}){
           );
       };
 
+      const addAcento = (texto)=>{
+      
+        if (texto.match('�')) {
+
+        let text=texto.toLowerCase();
+
+        return text
+        .replaceAll('i�n', 'ión')
+        .replaceAll('t�s', 'tís')
+        .replaceAll('m�s', 'mús')
+        .replaceAll('g�a', 'gía')
+        .replaceAll('e�o', 'eño')
+        .replaceAll('n�l', 'nál')
+        .replaceAll('r�f', 'ráf')
+        .replaceAll('r�n', 'rón')
+        .replaceAll('l�g', 'lág')
+        .replaceAll('l�s', 'lás')
+        .replaceAll('f�s', 'fís')
+        .replaceAll('m�t', 'mát')
+        .replaceAll('u�m', 'uím')
+        .replaceAll('n�m', 'nám')
+        .replaceAll('r�c', 'rác')
+        .replaceAll('3�', '3°')
+        .replaceAll('l�t', 'lít')
+        .replaceAll('2�', '2°')
+        .replaceAll('f�a', 'fía')
+        .replaceAll('m�a', 'mía')
+        .replaceAll('1�', '1°')
+        .replaceAll('p�b', 'púb')
+        .replaceAll('t�c', 'téc')
+        .replaceAll('g�g', 'góg')
+        .replaceAll('e�a', 'eña')
+        .replaceAll('n�t', 'nét')
+        .replaceAll('l�c', 'léc')
+        .replaceAll('t�r', 'tér')
+        .replaceAll('a�o', 'año')
+        .replaceAll('4�', '4°')
+        .replaceAll('5�', '5°')
+        .replaceAll('6�', '6°')
+        .replaceAll('7�', '7°')
+        .replaceAll('t�t', 'tát')
+        .replaceAll('e�as', 'eñas')
+        .replaceAll('pa�an', 'pañan')
+        .replaceAll('m�q', 'máq');
+        
+    
+      } else {
+        
+        return texto;
+      }
+   
+    }
+    
+
       const darFormato = (string) => {
         const fechaHora = new Date(string);
         const dia = fechaHora.getUTCDate();
@@ -79,7 +134,7 @@ export default function Tarjeta({miarray}){
                 <Text>&#41;</Text>
             </TouchableOpacity>
 
-            <Text style={{fontSize:20,color:'#b040a8'}}>{miarray.cargo}</Text>
+            <Text style={{fontSize:20,color:'#b040a8'}}>{addAcento(miarray.cargo)}</Text>
             <View style={styles.row}>
             <Text style={{fontWeight:600}}>Cierre de oferta: </Text>
                 <Text style={{fontSize:20,color:'#b040a8'}}>{darFormato(miarray.finoferta)}</Text>
@@ -114,13 +169,13 @@ export default function Tarjeta({miarray}){
                 
                 <View style={{display:'flex',flexDirection:'row'}}><AntDesign name="enviromento" size={15} color="black" /><Text style={{fontWeight:600}}>Distrito: {miarray.descdistrito}</Text></View>
                 
-                <TouchableOpacity style={styles.row}  onPress={()=>copyToClipboard(miarray.domiciliodesempeno)}>
-                    <Text style={{fontWeight:600}}>Domicilio : </Text>
-                    <Text>{miarray.domiciliodesempeno}&#40;<AntDesign name="copy1" size={18} color="black" />&#41;</Text>
+                <TouchableOpacity style={styles.row} onPress={() => copyToClipboard(addAcento(miarray.domiciliodesempeno))}>
+                    <Text style={{ fontWeight: 600 }}>Domicilio: </Text>
+                    <Text>{addAcento(miarray.domiciliodesempeno)}<AntDesign name="copy1" size={18} color="black" /></Text>
                 </TouchableOpacity>
-                    
+
                 
-                <View style={{display:'flex',flexDirection:'row'}}><AntDesign name="idcard" size={24} color="black" /><Text>curso division: {miarray.cursodivision}</Text></View>
+                <View style={{display:'flex',flexDirection:'row'}}><AntDesign name="idcard" size={24} color="black" /><Text>curso division: {addAcento(miarray.cursodivision)}</Text></View>
                 <View style={{display:'flex',flexDirection:'row'}}><AntDesign name="idcard" size={24} color="black" /><Text>directivo a cargo: {miarray.acargodireccion}</Text></View>
                 
                 

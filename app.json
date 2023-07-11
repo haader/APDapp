@@ -2,7 +2,7 @@
   "expo": {
     "name": "APDapp",
     "slug": "apdapp",
-    "version": "2.5.0", 
+    "version": "3.0", 
     "icon": "./assets/icon128.png",
     "splash": {
       "image": "./assets/splash.png",
@@ -19,7 +19,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.haader.apdapp",
-      "versionCode": 3
+      "versionCode": 4
     },
     "extra": {
       "eas": {
