@@ -117,14 +117,14 @@ export default function Tarjeta({miarray}){
     return (
         <ScrollView style={{height:'50%',borderWidth:1,margin:5,borderRadius:10}}>
           
-            <View style={{backgroundColor:'white',borderTopColor:'#38c8a8',borderTopWidth:10,borderRadius:10}}>
-                  
-            <TouchableOpacity style={[styles.row,styles.publicada]} onPress={()=>{openURL(miarray.idoferta,miarray.iddetalle)}}>
+            <View style={{backgroundColor:'white',borderTopColor:miarray.estado=='Publicada'?'rgba(56, 200, 168, 1)':'rgba(255, 255, 120, 1)',borderTopWidth:10,borderRadius:10}}>
+     
+            <TouchableOpacity style={[styles.row,styles.publicada,{backgroundColor:miarray.estado=='Publicada'?'rgba(56, 200, 168, 0.20)':'rgba(255, 255, 120, 0.20)'}]} onPress={()=>{openURL(miarray.idoferta,miarray.iddetalle)}}>
             
-            <Text style={{width:'80%',textAlign:'center'}}>{miarray.estado}</Text>
-            <AntDesign name="bars" size={24} color="black" />
-        
-        </TouchableOpacity>    
+                <Text style={{width:'80%',textAlign:'center'}}>{miarray.estado}</Text>
+                <AntDesign name="bars" size={24} color="black" />
+            
+             </TouchableOpacity>    
         
         <View style={{marginLeft:20}}>
             

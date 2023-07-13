@@ -141,7 +141,7 @@ const pintarPreTarjetas =(objetoIge,index)=>{
         <View
     style={[styles.igeTarjeta,{
     backgroundColor: objetoIge.estado=='Publicada'?'rgba(56, 200, 168, 0.20)':'rgba(255, 255, 120, 0.20)',
-    borderTopWidth:5,
+    borderTopWidth:10,
 //    borderTopColor:'#38c8a8'
     borderTopColor:objetoIge.estado=='Publicada'?'rgba(56, 200, 168, 1)':'rgba(255, 255, 120, 1)',
 }]}
@@ -283,8 +283,9 @@ const CartelVacio = () => {
             
             
             <Modal visible={viewModal} onRequestClose={closeModal}>
+                <ImageBackground source={require('../assets/background.jpg')} style={{ flex: 1,width:'100%',height:'110%',position:'absolute',top:'-10%'}}></ImageBackground>  
                 <Tarjeta miarray={array}/>
-                <TouchableOpacity style={{width:'100%',alignItems:'center'}} onPress={closeModal}><AntDesign name="closecircleo" size={50} color="black" /></TouchableOpacity>
+                <TouchableOpacity style={{width:'100%',alignItems:'center'}} onPress={closeModal}><AntDesign name="closecircleo" size={50} color="red" /></TouchableOpacity>
             </Modal>
         
         </View>
@@ -311,7 +312,9 @@ const styles=StyleSheet.create({
         marginLeft:10,
         marginRight:10,
     },estado:{
-        textAlign:'center'
+        textAlign:'center',
+        fontSize:25,
+        fontWeight:300
     },body:{
         margin:20
     }
