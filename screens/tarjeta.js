@@ -2,13 +2,14 @@ import React from 'react';
 import { View, Text, Button,StyleSheet, Linking,ScrollView, TouchableOpacity, Alert } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import { AntDesign } from '@expo/vector-icons';
-//import {addAcento} from '../componentes/addAcento';
+import addAcento from '../componentes/addAcento';
 
 
 
 
 export default function Tarjeta({miarray}){
 
+    console.log(addAcento(miarray.cargo).toUpperCase());
     const openURL = async (oferta,detalle) => {
     
             const url =`https://misservicios.abc.gob.ar/actos.publicos.digitales/postulantes/?oferta=${oferta}&detalle=${detalle}`;
@@ -27,76 +28,76 @@ export default function Tarjeta({miarray}){
         await Clipboard.setStringAsync(text);
       };
 
-      const guardar=(distrito,cargo,domicilio,ige)=>{
+    //   const guardar=(distrito,cargo,domicilio,ige)=>{
         
-        Alert.alert(
-            'Estado',
-            'Se Guardo en favoritos',
-            [
-              {
-                text: 'Aceptar',
-                onPress: () => {
-                    insertFav(distrito,cargo,domicilio,ige);
+    //     Alert.alert(
+    //         'Estado',
+    //         'Se Guardo en favoritos',
+    //         [
+    //           {
+    //             text: 'Aceptar',
+    //             onPress: () => {
+    //                 insertFav(distrito,cargo,domicilio,ige);
                     
-                },
-              },
-            ],
-            { cancelable: false }
-          );
-      };
+    //             },
+    //           },
+    //         ],
+    //         { cancelable: false }
+    //       );
+    //   };
 
-      const addAcento = (texto)=>{
+    //   const addAcento = (texto)=>{
       
-        if (texto.match('�')) {
+    //     if (texto.match('�')) {
 
-        let text=texto.toLowerCase();
+    //     let text=texto.toLowerCase();
 
-        return text
-        .replaceAll('i�n', 'ión')
-        .replaceAll('t�s', 'tís')
-        .replaceAll('m�s', 'mús')
-        .replaceAll('g�a', 'gía')
-        .replaceAll('e�o', 'eño')
-        .replaceAll('n�l', 'nál')
-        .replaceAll('r�f', 'ráf')
-        .replaceAll('r�n', 'rón')
-        .replaceAll('l�g', 'lág')
-        .replaceAll('l�s', 'lás')
-        .replaceAll('f�s', 'fís')
-        .replaceAll('m�t', 'mát')
-        .replaceAll('u�m', 'uím')
-        .replaceAll('n�m', 'nám')
-        .replaceAll('r�c', 'rác')
-        .replaceAll('3�', '3°')
-        .replaceAll('l�t', 'lít')
-        .replaceAll('2�', '2°')
-        .replaceAll('f�a', 'fía')
-        .replaceAll('m�a', 'mía')
-        .replaceAll('1�', '1°')
-        .replaceAll('p�b', 'púb')
-        .replaceAll('t�c', 'téc')
-        .replaceAll('g�g', 'góg')
-        .replaceAll('e�a', 'eña')
-        .replaceAll('n�t', 'nét')
-        .replaceAll('l�c', 'léc')
-        .replaceAll('t�r', 'tér')
-        .replaceAll('a�o', 'año')
-        .replaceAll('4�', '4°')
-        .replaceAll('5�', '5°')
-        .replaceAll('6�', '6°')
-        .replaceAll('7�', '7°')
-        .replaceAll('t�t', 'tát')
-        .replaceAll('e�as', 'eñas')
-        .replaceAll('pa�an', 'pañan')
-        .replaceAll('m�q', 'máq');
+    //     return text
+    //     .replaceAll('i�n', 'ión')
+    //     .replaceAll('t�s', 'tís')
+    //     .replaceAll('m�s', 'mús')
+    //     .replaceAll('g�a', 'gía')
+    //     .replaceAll('e�o', 'eño')
+    //     .replaceAll('n�l', 'nál')
+    //     .replaceAll('r�f', 'ráf')
+    //     .replaceAll('r�n', 'rón')
+    //     .replaceAll('l�g', 'lág')
+    //     .replaceAll('l�s', 'lás')
+    //     .replaceAll('f�s', 'fís')
+    //     .replaceAll('m�t', 'mát')
+    //     .replaceAll('u�m', 'uím')
+    //     .replaceAll('n�m', 'nám')
+    //     .replaceAll('r�c', 'rác')
+    //     .replaceAll('3�', '3°')
+    //     .replaceAll('l�t', 'lít')
+    //     .replaceAll('2�', '2°')
+    //     .replaceAll('f�a', 'fía')
+    //     .replaceAll('m�a', 'mía')
+    //     .replaceAll('1�', '1°')
+    //     .replaceAll('p�b', 'púb')
+    //     .replaceAll('t�c', 'téc')
+    //     .replaceAll('g�g', 'góg')
+    //     .replaceAll('e�a', 'eña')
+    //     .replaceAll('n�t', 'nét')
+    //     .replaceAll('l�c', 'léc')
+    //     .replaceAll('t�r', 'tér')
+    //     .replaceAll('a�o', 'año')
+    //     .replaceAll('4�', '4°')
+    //     .replaceAll('5�', '5°')
+    //     .replaceAll('6�', '6°')
+    //     .replaceAll('7�', '7°')
+    //     .replaceAll('t�t', 'tát')
+    //     .replaceAll('e�as', 'eñas')
+    //     .replaceAll('pa�an', 'pañan')
+    //     .replaceAll('m�q', 'máq');
         
     
-      } else {
+    //   } else {
         
-        return texto;
-      }
+    //     return texto;
+    //   }
    
-    }
+    // }
     
 
       const darFormato = (string) => {

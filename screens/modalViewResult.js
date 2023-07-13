@@ -58,6 +58,9 @@ const ModalViewResult = ({ isVisible, onClose, data, url}) => {
       //console.log(arrayResult.response.docs[actual]);
       setTotal(arrayResult.response.numFound);
       const miarray2=arrayResult.response.docs[actual];
+      // console.log("****modalViewReslt 61****");
+      // console.log("**"+miarray2.cargo);
+      
       
      return(
         
@@ -180,7 +183,7 @@ useEffect(()=>{
     <Modal visible={isVisible} onRequestClose={onClose}>
       
       <View style={{height:'85%'}}>
-      <ImageBackground source={require('../assets/background.jpg')} style={{ flex: 1,width:'100%',height:'110%',position:'absolute',top:0}}></ImageBackground>  
+      <ImageBackground source={require('../assets/background.jpg')} style={{ flex: 1,width:'100%',height:'110%',position:'absolute',top:'-10%'}}></ImageBackground>  
         <Text style={{width:'100%',textAlign:'center',margin:10,fontSize:30}}>Resultados</Text>
 
         {/* <Navegador/> */}

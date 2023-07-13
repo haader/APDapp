@@ -231,118 +231,123 @@ const actualizar=()=>{
 
   return (
     <View style={{height:'100%',paddingTop:30}}>
-      <ImageBackground source={require('../assets/background.jpg')} style={{ flex: 1,width:'100%',height:'100%',position:'absolute',top:0}}></ImageBackground>  
-    <ScrollView >
-          <View style={styles.container}>
-            <View style={[styles.container,{paddingLeft: 5,paddingRight: 5}]}>
-            {/* <Text style={styles.title}>Cargos disponibles</Text> */}
-        {arrayDistritos.map((item,index) => (
-// colocamos la tabla del distrito
-          <View style={{marginBottom:20}} key={index}>
-            <TouchableOpacity onPress={()=>{operacionesDistrito(item)}}><Text style={styles.title}>{item}</Text></TouchableOpacity>
-            <View style={styles.container}>
+   
+   <ModalViewResult isVisible={boleanMR} onClose={verResultados} data={filtroSelect} url={consultaURL}/>
+    <ModalCopiarDis isVisible={copyDisBolean} onClose={closeModalCopyDis} distritoSelect={selectDisCopiar} actualizar={actualizar}></ModalCopiarDis>
 
-                                  <View style={[styles.tableRow]}>
-                                    <Text style={[styles.column,styles.headerTable,styles.nivel,{backgroundColor:'#b040a8'}]}>Nivel</Text>
-                                    <Text style={[styles.column,styles.headerTable,styles.cargo,{backgroundColor:'#b040a8'}]}>Cargo</Text>
-                                    <Text style={[styles.column,styles.headerTable,styles.disponible,{backgroundColor:'#b040a8'}]}>Publicadas</Text>
-                                    <Text style={[styles.column,styles.headerTable,styles.acciones,{backgroundColor:'#b040a8'}]}>Acciones</Text>
-                                  </View>
-                                  <View style={styles.container}>
-                                  
-                                  {array.map((item, index2) => {
+      <ImageBackground source={require('../assets/background.jpg')} style={{ flex: 1,width:'100%',height:'100%',position:'absolute',top:0}}></ImageBackground>  
+    
+      <ScrollView >
+            <View style={{flex:1,paddingTop:60}}>
+              <View style={[styles.container,{paddingLeft: 5,paddingRight: 5}]}>
+              {/* <Text style={styles.title}>Cargos disponibles</Text> */}
+          {arrayDistritos.map((item,index) => (
+  // colocamos la tabla del distrito
+            <View style={{marginBottom:20}} key={index}>
+              <TouchableOpacity onPress={()=>{operacionesDistrito(item)}}><Text style={styles.title}>{item}</Text></TouchableOpacity>
+              <View style={styles.container}>
+
+                                    <View style={[styles.tableRow]}>
+                                      <Text style={[styles.column,styles.headerTable,styles.nivel,{backgroundColor:'#b040a8'}]}>Nivel</Text>
+                                      <Text style={[styles.column,styles.headerTable,styles.cargo,{backgroundColor:'#b040a8'}]}>Cargo</Text>
+                                      <Text style={[styles.column,styles.headerTable,styles.disponible,{backgroundColor:'#b040a8'}]}>Publicadas</Text>
+                                      <Text style={[styles.column,styles.headerTable,styles.acciones,{backgroundColor:'#b040a8'}]}>Acciones</Text>
+                                    </View>
+                                    <View style={styles.container}>
                                     
-                                    
-                                                      if (arrayDistritos[index].includes(item.distrito)) {
-                                                        colorB?colorB=false:colorB=true;
-                                                        return (
-                                                          <View key={item.id} style={styles.tableRow}>
-                                                            <TouchableOpacity onPress={() => {
-                                                                    // console.log("presionaste ver!")
-                                                                    if(numPublicada[index2]!==0){
-                                                                      setFiltroSelect([item.distrito,item.nivel,item.cargo])
-                                                                      ver();
-                                                                    }
-                                                                  }} style={[styles.column, styles.nivel,{backgroundColor:colorB?'#ccc':'white'}]}><Text style={styles.texto}>{item.nivel}</Text></TouchableOpacity>
-                                                             <TouchableOpacity onPress={() => {
-                                                                    // console.log("presionaste ver!")
-                                                                    if(numPublicada[index2]!==0){
-                                                                      setFiltroSelect([item.distrito,item.nivel,item.cargo])
-                                                                      ver();
-                                                                    }
-                                                                  }} style={[styles.column, styles.cargo,{backgroundColor:colorB?'#ccc':'white'}]}><Text style={styles.texto}>{item.cargo}</Text></TouchableOpacity>
-                                                             <TouchableOpacity onPress={() => {
-                                                                    // console.log("presionaste ver!")
-                                                                    if(numPublicada[index2]!==0){
-                                                                      setFiltroSelect([item.distrito,item.nivel,item.cargo])
-                                                                      ver();
-                                                                    }
-                                                                  }} style={[styles.column, styles.disponible,{backgroundColor:colorB?'#ccc':'white'}]}><Text style={styles.texto}>{numPublicada[index2]}</Text></TouchableOpacity>
-                                                            <View style={[styles.cellAcciones,styles.acciones,{backgroundColor:colorB?'#ccc':'white'}]}>
-                                                              
-                                                            
-                                                                <TouchableOpacity onPress={() => {
-                                                                    // console.log("presionaste ver!")
-                                                                    if(numPublicada[index2]!==0){
-                                                                      setFiltroSelect([item.distrito,item.nivel,item.cargo])
-                                                                      ver();
-                                                                    }
-                                                                  }}
-                                                                  style={{
-                                                                    //backgroundColor: 'red', // Establecer el color de fondo como rojo
-                                                                    paddingRight: 10, // Opcional: agregar un padding para mayor espacio alrededor del icono
-                                                                  }}
-                                                                  ><AntDesign name="eye" size={35} color={numPublicada[index2]==0?'red':"green"}/></TouchableOpacity>
-                                                                  
-                                                                  <TouchableOpacity  
-                                                                    onPress={() => {
-                                                                      
-                                                                        comandoDelete(item.id)
-                                                                      
+                                    {array.map((item, index2) => {
+                                      
+                                      
+                                                        if (arrayDistritos[index].includes(item.distrito)) {
+                                                          colorB?colorB=false:colorB=true;
+                                                          return (
+                                                            <View key={item.id} style={styles.tableRow}>
+                                                              <TouchableOpacity onPress={() => {
+                                                                      // console.log("presionaste ver!")
+                                                                      if(numPublicada[index2]!==0){
+                                                                        setFiltroSelect([item.distrito,item.nivel,item.cargo])
+                                                                        ver();
                                                                       }
-                                                                    }
+                                                                    }} style={[styles.column, styles.nivel,{backgroundColor:colorB?'#ccc':'white'}]}><Text style={styles.texto}>{item.nivel}</Text></TouchableOpacity>
+                                                              <TouchableOpacity onPress={() => {
+                                                                      // console.log("presionaste ver!")
+                                                                      if(numPublicada[index2]!==0){
+                                                                        setFiltroSelect([item.distrito,item.nivel,item.cargo])
+                                                                        ver();
+                                                                      }
+                                                                    }} style={[styles.column, styles.cargo,{backgroundColor:colorB?'#ccc':'white'}]}><Text style={styles.texto}>{item.cargo}</Text></TouchableOpacity>
+                                                              <TouchableOpacity onPress={() => {
+                                                                      // console.log("presionaste ver!")
+                                                                      if(numPublicada[index2]!==0){
+                                                                        setFiltroSelect([item.distrito,item.nivel,item.cargo])
+                                                                        ver();
+                                                                      }
+                                                                    }} style={[styles.column, styles.disponible,{backgroundColor:colorB?'#ccc':'white'}]}><Text style={styles.texto}>{numPublicada[index2]}</Text></TouchableOpacity>
+                                                              <View style={[styles.cellAcciones,styles.acciones,{backgroundColor:colorB?'#ccc':'white'}]}>
+                                                                
+                                                              
+                                                                  <TouchableOpacity onPress={() => {
+                                                                      // console.log("presionaste ver!")
+                                                                      if(numPublicada[index2]!==0){
+                                                                        setFiltroSelect([item.distrito,item.nivel,item.cargo])
+                                                                        ver();
+                                                                      }
+                                                                    }}
                                                                     style={{
                                                                       //backgroundColor: 'red', // Establecer el color de fondo como rojo
                                                                       paddingRight: 10, // Opcional: agregar un padding para mayor espacio alrededor del icono
                                                                     }}
-                                                                    >
-                                                                            <AntDesign name="closecircleo" size={25} color="black"/>
-                                                                    </TouchableOpacity>  
-                                                            
+                                                                    ><AntDesign name="eye" size={35} color={numPublicada[index2]==0?'red':"green"}/></TouchableOpacity>
+                                                                    
+                                                                    <TouchableOpacity  
+                                                                      onPress={() => {
+                                                                        
+                                                                          comandoDelete(item.id)
+                                                                        
+                                                                        }
+                                                                      }
+                                                                      style={{
+                                                                        //backgroundColor: 'red', // Establecer el color de fondo como rojo
+                                                                        paddingRight: 10, // Opcional: agregar un padding para mayor espacio alrededor del icono
+                                                                      }}
+                                                                      >
+                                                                              <AntDesign name="closecircleo" size={25} color="black"/>
+                                                                      </TouchableOpacity>  
                                                               
                                                                 
-                                                              
-                                                              
+                                                                  
+                                                                
+                                                                
+                                                              </View>
                                                             </View>
-                                                          </View>
-                                                        );
-                                                      } else {
-                                                        return null;
-                                                      }
-                                                      
-                                                    })}
+                                                          );
+                                                        } else {
+                                                          return null;
+                                                        }
+                                                        
+                                                      })}
 
-                                  </View>
-                                  </View>
-
-
-          </View>
-        ))}
-      </View>
+                                    </View>
+                                    </View>
 
 
-            
-            <View style={{height:30}}>
-            
             </View>
-            
-            {/* ... Agrega más filas de datos según sea necesario */}
-          </View>
-    </ScrollView>
-    
-    <CartelVacio/>
+          ))}
+        </View>
 
-    <View style={{justifyContent:'center',alignContent:'center',bottom:0,position:'absolute',width:'100%'}}>
+
+              
+              <View style={{height:30}}>
+              
+              </View>
+              
+              {/* ... Agrega más filas de datos según sea necesario */}
+            </View>
+      </ScrollView>
+      
+      <CartelVacio/>
+
+      <View style={{justifyContent:'center',alignContent:'center',bottom:0,position:'absolute',width:'100%'}}>
       <Button texto='Actualizar' press={()=>{ 
           //traemos los datos de la database
             
@@ -352,9 +357,9 @@ const actualizar=()=>{
 
       }}/>
       
-  </View>
-    <ModalViewResult isVisible={boleanMR} onClose={verResultados} data={filtroSelect} url={consultaURL}/>
-    <ModalCopiarDis isVisible={copyDisBolean} onClose={closeModalCopyDis} distritoSelect={selectDisCopiar} actualizar={actualizar}></ModalCopiarDis>
+      </View>
+
+   
   </View>
   );
 };

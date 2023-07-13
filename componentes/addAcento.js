@@ -1,5 +1,7 @@
-const addAcento = (texto) => {
-  if (texto !== undefined) {
+const addAcento = (texto1) => {
+  
+  if (texto1 !== undefined) {
+    let texto=texto1.toLowerCase();
     if (texto.includes('�')) {
       texto = texto
         .replaceAll('i�n', 'ión')
