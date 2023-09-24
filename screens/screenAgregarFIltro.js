@@ -3,10 +3,6 @@ import { StatusBar } from 'expo-status-bar';
 import { Alert, View,StyleSheet,ImageBackground,Text, TouchableOpacity } from 'react-native';
 import { insertFiltro, fetchData } from '../database';
 import Button from '../componentes/Button';
-
-
-    
-
 //IMPORTAMOS EL MODAL DE BUSQUEDA
 import ModalBusqueda from './modalBusqueda';
 
@@ -219,10 +215,10 @@ const ScreenAgregarFiltro = () =>{
         <ModalBusqueda title='Seleccione un nivel' isVisible={modal2} onClose={closeModal2} data={arrayNivel} setVariable={setNivel} frecuentes={nivFrecuentes} setNewFrecuentes={setNivFrecuentes}/>
         <ModalBusqueda title='Seleccione un cargo' isVisible={modal3} onClose={closeModal3} data={arrayCargo} setVariable={setCargo} frecuentes={carFrecuentes} setNewFrecuentes={setCarFrecuentes}/>
   
-        <View style={{ display: 'flex', flexDirection: 'row',top:140,position:'absolute',alignItems:'center',borderWidth:3,borderRadius:10,padding:10,borderColor:'#707070'}}>
+        {/* <View style={{ display: 'flex', flexDirection: 'row',top:140,position:'absolute',alignItems:'center',borderWidth:3,borderRadius:10,padding:10,borderColor:'#707070'}}>
           <Text style={{fontSize:60,fontWeight:'600',color:'#707070'}}>APD</Text>
           <Text style={{fontSize:30,bottom:-10,fontWeight:'100',color:'#707070'}}>app</Text>
-        </View>
+        </View> */}
 
         <View style={{ width:'50%', display: 'flex', flexDirection: 'column',marginTop:20 }}>
           <Button texto={distrito} press={()=>{
