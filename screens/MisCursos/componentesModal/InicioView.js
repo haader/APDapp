@@ -1,11 +1,10 @@
 import {React, useEffect, useState} from 'react';
 import { Modal,View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
-import { addMisCursos, fetchMisCursos } from './databaseMisCursos';
 import { AntDesign } from '@expo/vector-icons';
 
                 
 
-const InicioView=()=>{
+export const InicioView=()=>{
 
                     // aqui colocamos la visión general del curso
                     // puedeser cantidad de aprobados, desaprobados
@@ -20,4 +19,3 @@ const InicioView=()=>{
                     );    
 }
 
-export default InicioView;

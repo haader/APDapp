@@ -1,13 +1,13 @@
 import {React, useEffect, useState} from 'react';
 import { Modal,View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
-import { addMisCursos, fetchMisCursos } from './databaseMisCursos';
+
 import { AntDesign } from '@expo/vector-icons';
 
- const ListaAlumnosView=()=>{
+export const ListaAlumnosView=()=>{
                 
     useEffect(()=>{
         //colocamos el detch de inicio view
-    },[inicioView==true])
+    },[])
 
     //colocamos la lista de alumnos ordenados alfabeticamente
     //podemos colocar diversos criterios para ordenarlos como por ejemplo
@@ -21,7 +21,7 @@ import { AntDesign } from '@expo/vector-icons';
 
             <Text>Listado de Alumnos</Text>
             
-            <Text>Agregar un nuevo Alumnos</Text>
+            <Text style={{color:'gray',margin:10}}>Agregar un nuevo Alumnos</Text>
 
             <View style={styles.row}>
                 
@@ -50,4 +50,3 @@ const styles=StyleSheet.create({
 }
 })
 
-export default ListaAlumnosView;

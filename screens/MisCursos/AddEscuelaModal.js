@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import { Modal, View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
-import { addMisCursos, fetchMisCursos } from './databaseMisCursos';
+import { addMisCursos, fetchMisCursos, fetchTokens } from './databaseMisCursos';
 import { AntDesign } from '@expo/vector-icons';
 
 export default addEscuelaModal = ({ visible, close }) => {
@@ -312,16 +312,32 @@ export default addEscuelaModal = ({ visible, close }) => {
         )
     }
 
-    const [listToken,setListToken]=useState();
+    const [listToken,setListToken]=useState([]);
+
+    //ejecutamos el fetch para ver todos los tokens disponibles
+    useEffect(()=>{
+    fetchTokens((data)=>{
+        setListToken(data);
+        console.log('tokens:',data)
+    })
+    
+},[visible]
+    )
+    
+    
     const generateToken = (callback) => {
         
+        
+
         // Genera un número aleatorio entre 0 y 9999
         const randomNumber = Math.floor(Math.random() * 10000);
       
         // Formatea el número como un token de 4 dígitos (agrega ceros a la izquierda si es necesario)
         const tokenGenerado = randomNumber.toString().padStart(4, '0');
 
-        // Comprobar si el token generado está en la lista de tokens existentes
+        
+
+        // Comprobar si el token generado está en la lista de tokens existentesch 
         if (listToken.includes(parseInt(tokenGenerado))) {
             return callback(callback);
 
@@ -358,6 +374,7 @@ export default addEscuelaModal = ({ visible, close }) => {
             sabado ? addMisCursos(token, 'Sabado', horarios[5].horaInicio, horarios[5].minutosInicio, horarios[5].horaFin, horarios[5].minutosFin, establecimiento, materia, desde, hasta) : null;
 
             console.log(lunes, martes, miercoles, jueves, viernes, sabado)
+
             close();
         }
 
@@ -373,7 +390,7 @@ export default addEscuelaModal = ({ visible, close }) => {
             animationType="slide" // Puedes personalizar el tipo de animación
             transparent={true}
         >
-            <View style={{ borderWidth: 1, borderRadius: 10, padding: 10, margin: 10 }}>
+            <View style={{ borderWidth: 1, borderRadius: 10, padding: 10, margin: 10, backgroundColor:'rgba(0,0,0,0.8)' }}>
 
                 <Text style={styles.title}>Agregar un nuevo curso</Text>
 
@@ -424,9 +441,10 @@ export default addEscuelaModal = ({ visible, close }) => {
                         guardar()
                     }}>
                         <AntDesign name='save' color={'black'} size={20} />
+                        <Text>Guardar</Text>
                     </TouchableOpacity>
 
-
+{/* 
                     <TouchableOpacity style={styles.btn} onPress={() => {
                         fetchMisCursos((datos) => { console.log(datos) });
                     }}>
@@ -448,7 +466,7 @@ export default addEscuelaModal = ({ visible, close }) => {
                     }}>
                         <AntDesign name='close' color={'black'} size={20} />
                         <Text>Horarios</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
                 </View>
 
@@ -461,7 +479,9 @@ const styles = StyleSheet.create({
     title: {
         textAlign: 'center',
         fontSize: 20,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color:'white',
+        margin:15
     },
     column: {
         display: 'flex',
@@ -472,6 +492,9 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 10,
         margin: 10,
+        backgroundColor:'rgba(255,255,255,0.9)',
+        alignItems:'center',
+        justifyContent:'center'
 
     },
     btnDia: {
@@ -512,7 +535,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         width: '80%',
-        margin: 5
+        margin: 5,
+        backgroundColor:'rgba(255,255,255,0.9)',
+
     },
     row: {
         display: 'flex',

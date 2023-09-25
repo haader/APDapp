@@ -1,21 +1,19 @@
 import {React, useEffect, useState} from 'react';
 import { Modal,View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
-import { addMisCursos, fetchMisCursos } from './databaseMisCursos';
+
 import { AntDesign } from '@expo/vector-icons';
 
+import { ADDtareasInstitucionales, FETCHtareasInstitucionales, updateTAREAtareaInstitucional, updateBOLEANOtareaInstitucional, DELETEtareaInstitucional } from './databaseComponentesModal/tareasInstitucionalesDocentesDB.js';
 
-import { ADDtareasInstitucionales } from './databaseComponentesModal/tareasInstitucionalesDocentesDB/ADDtareasInstitucionales';
-import { FETCHtareasInstitucionales } from './databaseComponentesModal/tareasInstitucionalesDocentesDB/FETCHtareasInstitucionales';
-import { updateTAREAtareaInstitucional } from './databaseComponentesModal/tareasInstitucionalesDocentesDB/updateTAREAtareaInstitucional';
-import { updateBOLEANOtareaInstitucional } from './databaseComponentesModal/tareasInstitucionalesDocentesDB/updateBOLEANOtareaInstitucional';
-import { DELETEtareaInstitucional } from './databaseComponentesModal/tareasInstitucionalesDocentesDB/DELETEtareaInstitucional';
-
-
-
-const TareasInstitucionalesDocentesView=( token )=>{
+export const TareasInstitucionalesDocentesView=( token )=>{
     
     const [tarea,setTarea]=useState('');
     const [data,setData]=useState([])
+
+    //view para ver las tareas selleccionadas
+    //es un objeto que contiene todos los datos de las tarea seleccionada fecha tarea id
+    const [select,setSelect]=useState({tarea:'hola',fecha:'20/09/20231', id:12})
+    const [viewSelect,setViewSelect]=useState(false)
 
     useEffect(()=>{
         actualizarDatos()
@@ -35,7 +33,9 @@ const TareasInstitucionalesDocentesView=( token )=>{
 
     const edit=(id,token)=>{
 
-        Alert.alert('ATENCIÓN', '¿Desea editar esta tarea?',[{text:'Si',onPress:()=>{}},{text:'No',onPress:()=>{}}])
+        Alert.alert('ATENCIÓN', '¿Desea editar esta tarea?',[{text:'Si',onPress:()=>{
+            Alert.alert('Atención','PROXIAMENTE',[{text:'ok',onPress:()=>{}}])
+        }},{text:'No',onPress:()=>{}}])
 
     }
 
@@ -50,6 +50,22 @@ const TareasInstitucionalesDocentesView=( token )=>{
 
     }
 
+    const VerTareaSeleccionada=()=>{
+
+        return(
+            <View style={{display:'flex',position:'absolute'}}>
+                <Text>Tarea Seleccionada</Text>
+                <Text>{select.fecha}</Text>
+                <Text>{select.tarea}</Text>
+                <TouchableOpacity onPress={()=>{
+                    setViewSelect(false)
+                }}>
+                    <AntDesign name='close' size={25} color={'black'}></AntDesign>
+                </TouchableOpacity>
+            </View>
+        )
+
+    }
 
     const TareasComponente=()=>{
         
@@ -59,15 +75,27 @@ const TareasInstitucionalesDocentesView=( token )=>{
                             return(
                                 <View key={index} style={styles.borderComponente}>
                                     {/* inono que demuestra el estado */}
-                                    <View style={{alignItems:'center',justifyContent:'center',backgroundColor:element.estado?'white':'black'}}>
+                                    <TouchableOpacity style={{alignItems:'center',justifyContent:'center',backgroundColor:element.estado?'white':'black'}}
+                                    onPress={()=>{
+
+                                        updateBOLEANOtareaInstitucional(token,element.id,element.estado?0:1);
+                                        actualizarDatos()
+
+                                    }}>
 
                                         <AntDesign name='circle' size={25} color={element.estado?'black':'white'}/>
 
-                                    </View>
+                                    </TouchableOpacity>
                                     {/* tareas */}
-                                        <Text style={{backgroundColor:element.estado?'green':'white'}}>
-                                            {element.tarea}
-                                        </Text>
+                                        <TouchableOpacity onPress={()=>{
+                                            setSelect(element.tarea,element.fecha,element.estado);
+                                            setViewSelect(true);
+                                            
+                                        }}>
+                                            <Text style={{backgroundColor:element.estado?'green':'white'}}>
+                                                {element.tarea}
+                                            </Text>
+                                        </TouchableOpacity>
                                     {/* botones */}
                                     <View style={styles.row}>
                                         {/* editar   tarea */}
@@ -93,6 +121,8 @@ const TareasInstitucionalesDocentesView=( token )=>{
     return( 
         <View>
 
+{viewSelect && (<VerTareaSeleccionada/>)}            
+
             <Text>Tareas Institucionales</Text>
             
             {data.length>0?<TareasComponente/>:<View><Text>No hay tareas institucionales guardadas</Text></View>}
@@ -104,15 +134,21 @@ const TareasInstitucionalesDocentesView=( token )=>{
                 <TextInput 
                 value={tarea}
                 onChangeText={ChangeText} 
-                placeholder='Tarea'></TextInput>
+                placeholder='Tarea'
+                style={{borderWidth:1,borderRadius:10,padding:10,width:'80%'}}
+                >
+
+                </TextInput>
                 
-                <TouchableOpacity onPress={
+                <TouchableOpacity
+                style={{borderRadius:50,borderWidth:1,justifyContent:'center',alignItems:'center'}}
+                onPress={
                     ()=>{
                         if(tarea!=null||tarea!=''){
 
-                            ADDtareasInstitucionales(token,tarea)
+                            ADDtareasInstitucionales(token,tarea);
 
-                            actualizarDatos()
+                            actualizarDatos();
                             
                         }else{
                             Alert.alert('ATENCION','debe agregar algun valor a la tarea',[{text:'ok',onPress:()=>{}}])
@@ -141,4 +177,3 @@ const styles=StyleSheet.create({
 }
 })
 
-export default TareasInstitucionalesDocentesView;

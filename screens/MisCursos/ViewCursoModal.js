@@ -1,24 +1,24 @@
 import {React, useEffect, useState} from 'react';
 import { Modal,View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
-import { addMisCursos, fetchMisCursos } from './databaseMisCursos';
+import { addMisCursos, deleteMisCursos, deleteToken, fetchMisCursos } from './databaseMisCursos.js';
 import { AntDesign } from '@expo/vector-icons';
 
-import {InicioView} from './componentesModal/InicioView';
-import {AsistenciaView} from './componentesModal/AsistenciaView';
-import {ListaAlumnosView} from './componentesModal/ListaAlumnosView';
-import {NotasView} from './componentesModal/NotasView';
-import {TareasAlumnosView} from './componentesModal/TareasAlumnosView';
-import {TrayectoriasView} from './componentesModal/TrayectoriasView';
-import {TareasInstitucionalesDocentesView} from './componentesModal/TareasInstitucionalesDocentesView';
+import {InicioView} from './componentesModal/InicioView.js';
+import {AsistenciaView} from './componentesModal/AsistenciaView.js';
+import {ListaAlumnosView} from './componentesModal/ListaAlumnosView.js';
+import {NotasView} from './componentesModal/NotasView.js';
+import {TareasAlumnosView} from './componentesModal/TareasAlumnosView.js';
+import {TrayectoriasView} from './componentesModal/TrayectoriasView.js';
+import {TareasInstitucionalesDocentesView} from './componentesModal/TareasInstitucionalesDocentesView.js';
 
 
-export default ViewCursoModal=({close, visible, escuela, materia, horario, id, token})=>{
+export default ViewCursoModal=({close, visible, escuela, materia, horario, id, token, actualizarDatos})=>{
             
-            const [inicioView, setInicioView]=useState(true);
+            const [inicioView, setInicioView]=useState(false);
             const [listaAlumnosView,setListaAlumnosView]=useState(false);
             const [asistenciaView,setAsistenciaView]=useState(false);
             const [notasView, setNotasView]=useState(false);
-            const [administrarView,setAdministrarView]=useState(false);
+            const [tareasInstitucionalesView,setTareasInstitucionalesView]=useState(true);
 
             const [tareasAlumnosView,setTareasAlumnosView]=useState(false);
             const [trayectoriasView,setTrayectoriasView]=useState(false);
@@ -29,7 +29,7 @@ export default ViewCursoModal=({close, visible, escuela, materia, horario, id, t
      setInicioView(false);
      setListaAlumnosView(false);
      setAsistenciaView(false);
-     setAdministrarView(false);
+     setTareasInstitucionalesView(false);
      setNotasView(false);
      setTrayectoriasView(false);
      setTareasAlumnosView(false);
@@ -41,11 +41,12 @@ export default ViewCursoModal=({close, visible, escuela, materia, horario, id, t
 
 {/* por el momento colocamos esto primero que es lo que va a funcionar */}
             <View style={styles.iconAndText}>
-                <TouchableOpacity style={[styles.icon,{backgroundColor:administrarView?'rgba(0,0,0,0.7)':'white'}]} onPress={()=>{
-                    ocultar();administrarView?setAdministrarView(true):setAdministrarView(true)}}>
+                <TouchableOpacity style={[styles.icon,{backgroundColor:tareasInstitucionalesView?'rgba(0,0,0,0.7)':'white'}]} onPress={()=>{
+                    ocultar();tareasInstitucionalesView?setTareasInstitucionalesView(true):setTareasInstitucionalesView(true)}}>
                     <AntDesign name="user" size={30} color="black" />
                 </TouchableOpacity>
-                <Text style={styles.textIcon}>Tareas{'\n'} Docentes</Text>
+                <Text style={styles.textIcon}>Tareas</Text>
+                <Text style={styles.textIcon}>Docentes</Text>
             </View>    
                 
             <View style={styles.iconAndText}>
@@ -53,7 +54,8 @@ export default ViewCursoModal=({close, visible, escuela, materia, horario, id, t
                     ocultar();listaAlumnosView?setInicioView(true):setListaAlumnosView(true)}}>
                     <AntDesign name="user" size={30} color="black" />
                 </TouchableOpacity>
-                <Text style={styles.textIcon}>Lista{'\n'}de Alumnos</Text>
+                <Text style={styles.textIcon}>Lista</Text>
+                <Text style={styles.textIcon}>de Alumnos</Text>
             </View>
                 
             <View style={styles.iconAndText}>
@@ -62,6 +64,7 @@ export default ViewCursoModal=({close, visible, escuela, materia, horario, id, t
                     <AntDesign name="user" size={30} color="black" />
                 </TouchableOpacity>
                 <Text style={styles.textIcon}>Asistencia</Text>
+                <Text style={styles.textIcon}></Text>
             </View>
 
             <View style={styles.iconAndText}>
@@ -69,7 +72,8 @@ export default ViewCursoModal=({close, visible, escuela, materia, horario, id, t
                     ocultar();notasView?setInicioView(true):setNotasView(true)}}>
                     <AntDesign name="checkcircleo" size={30} color="black" />
                 </TouchableOpacity>
-                <Text style={styles.textIcon}>Notas{'\n'} Alumnos</Text>
+                <Text style={styles.textIcon}>Notas</Text>
+                <Text style={styles.textIcon}>Alumnos</Text>
             </View>
 
             <View style={styles.iconAndText}>
@@ -77,7 +81,8 @@ export default ViewCursoModal=({close, visible, escuela, materia, horario, id, t
                     ocultar();tareasAlumnosView?setTareasAlumnosView(true):setTareasAlumnosView(true)}}>
                     <AntDesign name="checkcircleo" size={30} color="black" />
                 </TouchableOpacity>
-                <Text style={styles.textIcon}>Tareas{'\n'}  Alumons</Text>
+                <Text style={styles.textIcon}>Tareas</Text>
+                <Text style={styles.textIcon}>Alumons</Text>
             </View>
 
             <View style={styles.iconAndText}>
@@ -86,10 +91,33 @@ export default ViewCursoModal=({close, visible, escuela, materia, horario, id, t
                     <AntDesign name="checkcircleo" size={30} color="black" />
                 </TouchableOpacity>
                 <Text style={styles.textIcon}>Trayectorias</Text>
+                <Text style={styles.textIcon}></Text>
             </View>
 
             </View>
             
+        )
+    }
+
+    const eliminarCurso=(clave)=>{
+        Alert.alert('Atención','¿Deseas Realmente eliminar este curso?',[{text:'Si',onPress:()=>{
+            deleteMisCursos(clave,()=>{actualizarDatos()});
+            //cerramos el modal
+            close();
+            
+        }},{text:'No',onPress:()=>{}}])
+    }
+    const editarCurso=(clave)=>{
+        Alert.alert('Atención','¿Deseas editar este curso?',[{text:'Si',onPress:()=>{
+            
+        }},{text:'No',onPress:()=>{}}])
+    }
+
+    const Proximamente=()=>{
+        return(
+            <View>
+                <Text>Proximamente</Text>
+            </View>
         )
     }
 
@@ -106,6 +134,7 @@ return(
         justifyContent: 'center', // Centra verticalmente
         alignItems: 'center', // Centra horizontalmente
         backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fondo semitransparente para oscurecer el fondo
+        
     }}>
         
         {/* Contenido del modal aquí */}
@@ -123,13 +152,21 @@ return(
 {/* botones */}
             <View style={{display:'flex', flexDirection:'row'}}>
                     
-                    <TouchableOpacity style={styles.btn}>
+                    <TouchableOpacity style={styles.btn}
+                    onPress={()=>{
+                        editarCurso(token);
+                    }}
+                    >
 
                         <AntDesign name="edit" size={24} color="black" />
 
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.btn}>
+                    <TouchableOpacity style={styles.btn}
+                    onPress={()=>{
+                        eliminarCurso(token);
+                    }}
+                    >
                         
                         <AntDesign name="delete" size={24} color="black" />
 
@@ -147,23 +184,27 @@ return(
                 <Iconos/>
 
 {/* View de componentes */}
-<View style={{height:'50%'}}>
+<View style={{height:'50%',borderWidth:1,borderRadius:10,padding:10,width:'95%',alignItems:'center'}}>
 
-            { TareasInstitucionalesDocentesView && (<TareasInstitucionalesDocentesView/>)} 
+            { tareasInstitucionalesView && (<TareasInstitucionalesDocentesView/>)} 
             
-            { inicioView && (<InicioView/>)}
+            {/* { inicioView && (<InicioView/>)} */}
+            { inicioView && (<Proximamente/>)}
             
-            { listaAlumnosView && (<ListaAlumnosView/>)}
+            {/* { listaAlumnosView && (<ListaAlumnosView/>)} */}
+            { listaAlumnosView && (<Proximamente/>)}
             
-            { asistenciaView && (<AsistenciaView/>)}
+            {/* { asistenciaView && (<AsistenciaView/>)} */}
+            { asistenciaView && (<Proximamente/>)}
             
-            { notasView && (<NotasView/>)}
-            
-            { administrarView && (<TareasInstitucionalesDocentesView/>)}
+            {/* { notasView && (<NotasView/>)} */}
+            { notasView && (<Proximamente/>)}
 
-            {TrayectoriasView && (<TrayectoriasView/>)}
+            {/* {trayectoriasView && (<TrayectoriasView/>)} */}
+            {trayectoriasView && (<Proximamente/>)}
 
-            {TareasAlumnosView && (<TareasAlumnosView/>)}
+            {/* {tareasAlumnosView && (<TareasAlumnosView token={token}/>)} */}
+            {tareasAlumnosView && (<Proximamente/>)}
 
 </View>
 

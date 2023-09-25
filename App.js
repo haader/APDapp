@@ -11,12 +11,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ScreenTablas from './screens/ScreenTablas';
 import ScreenFavoritos from './screens/screenFavoritos'
 import ScreenAgregarFiltros from './screens/screenAgregarFIltro'
-import ScreenMisCursos from './screens/MisCursos/screenMisCursos'
+import ScreenMisCursos from './screens/MisCursos/ScreenMisCursos'
 //IMPORTAMOS LOS COMANDOS DE LA BASE DE DATOS
 import { initDatabase } from './database';
 //iconos
 import { AntDesign } from '@expo/vector-icons';
-import { initMisCursos } from './screens/MisCursos/databaseMisCursos';
+import { initMisCursos,initTokensMisCursos } from './screens/MisCursos/databaseMisCursos';
 
 export default function App() {
 
@@ -28,7 +28,7 @@ export default function App() {
     //realizamos los comandos de la database
     initDatabase(); // Inicializar la base de datos al cargar el componente
     initMisCursos();
-    initTokesMisCursos();
+    initTokensMisCursos();
 
   },[])
 

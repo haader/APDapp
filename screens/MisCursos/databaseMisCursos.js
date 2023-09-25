@@ -1,13 +1,13 @@
 import { Alert } from 'react-native';
 import * as SQLite from 'expo-sqlite';
-import { INITtareasInstitucionales } from './componentesModal/databaseComponentesModal/tareasInstitucionalesDocentesDB/INITtareasInstitucionales';
+import { INITtareasInstitucionales } from './componentesModal/databaseComponentesModal/tareasInstitucionalesDocentesDB.js';
 
 const db = SQLite.openDatabase('misCursos.db');
 
 
 
 //CREAMOS TABLAS DE TOKES
-                        export const initTokesMisCursos=()=>{ 
+                        export const initTokensMisCursos=()=>{ 
                                 db.transaction((tx)=>{
                                 tx.executeSql(
                                 //'DROP TABLE IF EXISTS tokesMisCursos',
@@ -30,7 +30,7 @@ const db = SQLite.openDatabase('misCursos.db');
                                         )
                                 })
                         }
-                        export const deleteToken=()=>{
+                        export const deleteToken=(token)=>{
                                 db.transaction((tx)=>{
                                         tx.executeSql('DELETE FROM tokenMisCursos WHERE token = ?',[token],
                                         (obj,result)=>{})
@@ -77,7 +77,8 @@ export const addMisCursos=(token,dia,horaInicio,minutosInicio,horaFin,minutosFin
                 (_,rows)=>{
                         if(rows.rowsAffected>0){
                                 
-                                INITtareasInstitucionales(token)
+                                INITtareasInstitucionales(token);
+                                addToken(token);
                                 
                                 Alert.alert("Atención",'el curso se guardo correctamente',[{
                                         text:'ok',
@@ -109,15 +110,17 @@ export const updateMisCursos=(id)=>{
         }) 
 }
 
-export const deleteMisCursos=(id)=>{
+export const deleteMisCursos=(token, callback)=>{
         db.transaction((tx)=>{
-                tx.executeSql('DELETE * FROM misCursos WHERE id = ?',[id],(txtObj,resultSet)=>{
+                tx.executeSql('DELETE FROM misCursos WHERE token = ?',[token],(txtObj,resultSet)=>{
                         if(resultSet.rowsAffected>0){
                                 Alert.alert("Atención","Se eliminaron los datos correctamente",[{text:"ok",onPress:()=>{}}])
+                                deleteToken(token);
+                                callback();
                         }else{
                                 Alert.alert("Error","NO se eliminaron los datos correctamente",[{text:"ok",onPress:()=>{}}])
 
                         }
                 })
-        },(error)=>{console.error('ocurrio un error al eliinar los datos',error)})
+        },(error)=>{console.error('ocurrio un error al eliminar los datos',error)})
 }

@@ -30,6 +30,7 @@ const ScreenMisCursos=()=>{
 
             //enviamos los datos a la variable global
             setDatos(data);
+            console.log("-cursos:",data)
         })
     }
 
@@ -144,6 +145,7 @@ const ScreenMisCursos=()=>{
                 horario={selectHorario}
                 id={selectId}
                 token={selectToken}
+                actualizarDatos={traerDatos}
              />
 
             <ImageBackground source={require('../../assets/background.jpg')} style={{ flex: 1,width:'100%',height:'100%',position:'absolute',top:0}}></ImageBackground>  
